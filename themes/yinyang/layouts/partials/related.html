@@ -1,16 +1,16 @@
 {{ $related := (where site.RegularPages "Type" "in" site.Params.mainSections).Related . | first 3 }}
 {{ with $related }}
-<div class="mt-20 border-t border-neutral-200/50 pt-10 dark:border-neutral-800">
-  <div class="text-xs font-bold text-neutral-400 tracking-widest mb-8 flex items-center gap-2 dark:text-neutral-500">
-    <span class="w-2 h-2 bg-neutral-200 rounded-full dark:bg-neutral-700"></span>
+<div class="mt-20 border-t border-slate-100 pt-10 dark:border-neutral-800">
+  <div class="text-xs font-bold text-slate-400 tracking-widest mb-8 flex items-center gap-2 dark:text-neutral-500">
+    <span class="w-2 h-2 bg-slate-200 rounded-full dark:bg-neutral-700"></span>
     RELATED POSTS
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     {{ range . }}
-    <a href="{{ .RelPermalink }}" class="group block p-6 bg-white/95 backdrop-blur-md border border-neutral-100 rounded-2xl shadow-sm shadow-neutral-100/50 hover:shadow-xl hover:shadow-neutral-200/50 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden hover:bg-white dark:bg-neutral-900/60 dark:border-white/5 dark:hover:bg-neutral-900/80 dark:hover:shadow-black/50 dark:shadow-sm">
-      <h4 class="font-bold text-neutral-800 mb-3 group-hover:text-black line-clamp-2 dark:text-neutral-200 dark:group-hover:text-white">{{ .Title }}</h4>
-      <div class="text-neutral-400 text-xs font-mono flex items-center gap-2 dark:text-neutral-500">
-        <span class="w-1.5 h-1.5 rounded-full bg-neutral-300 group-hover:bg-black transition-colors dark:bg-neutral-600 dark:group-hover:bg-white"></span>
+    <a href="{{ .RelPermalink }}" class="group block p-6 bg-white border-none rounded-2xl shadow-sm shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden hover:bg-white dark:bg-neutral-900/60 dark:border-white/5 dark:hover:bg-neutral-900/80 dark:hover:shadow-black/50 dark:shadow-sm">
+      <h4 class="font-bold text-slate-800 mb-3 group-hover:text-black line-clamp-2 dark:text-neutral-200 dark:group-hover:text-white">{{ .Title }}</h4>
+      <div class="text-slate-400 text-xs font-mono flex items-center gap-2 dark:text-neutral-500">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-black transition-colors dark:bg-neutral-600 dark:group-hover:bg-white"></span>
         {{ .Date.Format "2006.01.02" }}
       </div>
       
