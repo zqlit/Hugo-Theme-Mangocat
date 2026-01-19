@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
+{{ partial "head.html" . }}
+
+<body>
+  <article class="w-full px-2 mx-auto max-w-[800px]" id="main-container">
+    {{ partial "header.html" . }}
+    
+    <div class="mt-8 mb-20 animate-fade-in-up">
+      <!-- Page Header -->
+      <div class="flex items-end justify-between mb-12 ml-2 border-b border-neutral-200/50 pb-6 dark:border-neutral-700/50">
+        <div>
+          <h1 class="text-4xl font-bold text-neutral-900 tracking-tight mb-2 dark:text-white">{{ .Title | default "Articles" }}</h1>
+          <p class="text-neutral-500 font-serif italic dark:text-neutral-400">Thinking, coding, and sharing.</p>
+        </div>
+        <span class="px-4 py-1.5 bg-white border-none rounded-full text-xs font-bold text-neutral-500 uppercase tracking-widest backdrop-blur-md shadow-sm shadow-slate-200/50 dark:bg-neutral-900/50 dark:border-white/5 dark:text-neutral-400 dark:shadow-black/50 dark:shadow-sm">
+          {{ len .Pages }} Posts
+        </span>
+      </div>
+      
+      <!-- Posts List (Vertical) -->
+      <div class="space-y-6">
+        {{ range .Paginator.Pages }}
+        <a href="{{ .RelPermalink }}" class="group block p-6 sm:p-8 bg-white border-none rounded-3xl shadow-sm shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden hover:bg-white dark:bg-neutral-900/60 dark:border-white/5 dark:shadow-black/50 dark:hover:bg-neutral-900/80 dark:shadow-sm">
+           <div class="flex flex-col md:flex-row gap-6 md:items-center justify-between relative z-10">
+            <!-- Date & Meta (Left/Top) -->
+            <div class="flex md:flex-col items-center md:items-start gap-3 md:gap-1 md:w-32 flex-shrink-0">
+              <span class="text-3xl font-bold text-neutral-300 group-hover:text-neutral-400 transition-colors font-display dark:text-neutral-600 dark:group-hover:text-neutral-500">
+                {{ .Date.Format "02" }}
+              </span>
+              <div class="flex items-center gap-2">
+                 <span class="text-xs font-bold text-neutral-400 uppercase tracking-wider dark:text-neutral-500">
+                   {{ .Date.Format "Jan 2006" }}
+                 </span>
+              </div>
+            </div>
+            
+            <!-- Content (Middle) -->
+            <div class="flex-grow">
+              <div class="flex items-center gap-3 mb-2">
+                {{ if .Params.categories }}
+                  {{ range first 1 .Params.categories }}
+                  <span class="px-2 py-0.5 bg-black/5 rounded-md text-[10px] font-bold text-neutral-500 uppercase tracking-wider group-hover:bg-black group-hover:text-white transition-colors dark:bg-white/10 dark:text-neutral-400 dark:group-hover:bg-white dark:group-hover:text-black">
+                    {{ . }}
+                  </span>
+                  {{ end }}
+                {{ end }}
+              </div>
+              
+              <h3 class="text-xl md:text-2xl font-bold text-neutral-900 mb-3 leading-tight group-hover:text-black transition-colors dark:text-white dark:group-hover:text-neutral-100">
+                {{ .Title }}
+              </h3>
+              
+              <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2 md:line-clamp-2 group-hover:text-neutral-600 transition-colors dark:text-neutral-400 dark:group-hover:text-neutral-300">
+                {{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | plainify | truncate 100 }}{{ end }}
+              </p>
+            </div>
+            
+            <!-- Arrow (Right) -->
+            <div class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/50 border border-white/60 text-neutral-400 group-hover:bg-black group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-sm dark:bg-white/5 dark:border-white/5 dark:text-neutral-500 dark:group-hover:bg-white dark:group-hover:text-black">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+               </svg>
+            </div>
+          </div>
+          
+          <!-- Background Gradient Blob -->
+          <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-gradient-to-br from-neutral-100/50 to-neutral-200/50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none dark:from-neutral-800/50 dark:to-neutral-700/50"></div>
+        </a>
+        {{ end }}
+      </div>
+
+      <!-- Pagination -->
+      {{ if .Paginator }}
+      <div class="mt-20 flex justify-center items-center gap-4">
+        {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL }}" class="flex items-center gap-2 px-6 py-3 bg-white border-none rounded-2xl text-sm font-bold text-neutral-600 hover:bg-black hover:text-white hover:border-transparent hover:shadow-lg transition-all shadow-sm shadow-slate-200/50 dark:bg-neutral-900/60 dark:border-white/5 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-black dark:shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+          Previous
+        </a>
+        {{ end }}
+        
+        <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase dark:text-neutral-500">
+          Page {{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}
+        </span>
+
+        {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL }}" class="flex items-center gap-2 px-6 py-3 bg-white border-none rounded-2xl text-sm font-bold text-neutral-600 hover:bg-black hover:text-white hover:border-transparent hover:shadow-lg transition-all shadow-sm shadow-slate-200/50 dark:bg-neutral-900/60 dark:border-white/5 dark:text-neutral-400 dark:hover:bg-white dark:hover:text-black dark:shadow-sm">
+          Next
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+    </div>
+
+    {{ partial "footer.html" . }}
+  </article>
+
+  {{ partial "scripts.html" . }}
+</body>
+
+</html>

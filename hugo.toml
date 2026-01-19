@@ -1,0 +1,42 @@
+baseURL = "https://muzhui.cn/"
+languageCode = "en-us"
+title = "槌"
+theme = "yinyang"
+DefaultContentLanguage = "cn"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    guessSyntax = true
+    noClasses = true
+    style = "bw"
+    tabWidth = 2
+
+[author]
+  name = "王君尧"
+  homepage = "https://muzhui.cn/"
+
+
+[params]
+description = "Ops / Cloud Native / Automation"
+mainSections = ["posts"]
+headTitle = "伍比贰"
+favicon = "/favicon.ico"
+[[params.socials]]
+name = "Posts"
+link = "/posts/"
+[[params.socials]]
+name = "About"
+link = "/about/"
+
+
+# extraCSSFiles = ["css/foo.css", "css/bar.css"]
+extraCSSFiles = []
+
+[params.artalk]
+  server = "https://artalk.muzhui.cn"
+  site = "伍比贰"
+
+uglyURLs = true

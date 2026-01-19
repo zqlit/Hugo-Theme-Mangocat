@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head.html" . }}
+
+<body>
+  <article class="max-w-[800px] mx-auto px-4 md:px-0" id="main-container">
+    {{ partial "header.html" . }}
+
+    <div class="mb-12">
+       <h1 class="text-4xl font-bold mb-10 text-neutral-900 dark:text-white">{{ .Title | default .Data.Term }}</h1>
+       <div class="space-y-10">
+         {{ range (where .Data.Pages "Type" "in" site.Params.mainSections) }}
+         <div class="group flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 border-b border-neutral-200/60 pb-8 last:border-0 last:pb-0 dark:border-neutral-800">
+           <time class="text-neutral-400 font-mono text-sm shrink-0 w-32 dark:text-neutral-500">{{ .Date.Format "2006.01.02" }}</time>
+           <div class="flex-grow">
+             <h2 class="text-xl font-medium mb-3">
+               <a href="{{ .RelPermalink }}" class="text-neutral-900 hover:text-black hover:underline decoration-neutral-300 underline-offset-4 transition-all dark:text-white dark:hover:text-neutral-200 dark:decoration-neutral-600">
+                 {{ .Title }}
+               </a>
+             </h2>
+             <p class="text-neutral-600 text-sm leading-relaxed line-clamp-2 dark:text-neutral-400">
+               {{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | plainify | truncate 150 }}{{ end }}
+             </p>
+             
+             {{ if .Params.categories }}
+             <div class="mt-4 flex gap-2">
+                {{ range .Params.categories }}
+                <span class="inline-block px-2 py-0.5 bg-neutral-100 text-neutral-600 text-xs rounded border border-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700">{{ . }}</span>
+                {{ end }}
+             </div>
+             {{ end }}
+           </div>
+         </div>
+         {{ end }}
+       </div>
+    </div>
+
+    {{ partial "footer.html" . }}
+  </article>
+
+  {{ partial "scripts.html" . }}
+</body>
+
+</html>

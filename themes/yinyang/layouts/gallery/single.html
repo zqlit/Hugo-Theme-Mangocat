@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "head.html" . }}
+
+<body>
+  <article class="w-full px-2 mx-auto max-w-[800px] {{ .Site.Language.LanguageName }}" id="main-container">
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-full px-2">
+        <div class="site-header">
+          {{ partial "header.html" . }}
+        </div>
+        <header class="mb-[50px] mt-10">
+          <h1 class="text-2xl font-semibold m-0 max-sm:text-lg text-neutral-900 dark:text-white">{{ .Title }}</h1>
+        </header>
+
+        <div class="mb-[50px] prose prose-neutral max-w-full prose-a:underline prose-a:decoration-black prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-code:bg-gray-100 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none dark:prose-invert dark:prose-a:decoration-white dark:prose-blockquote:border-neutral-700 dark:prose-code:bg-neutral-800">
+          <div class="flex flex-wrap -mx-2 gallery">
+            {{ range .Params.gallery }}
+            <div class="w-1/2 px-2 mb-5 text-center gallery-img">
+              <img src="{{ .url }}" alt="{{ .name }}" class="max-w-full h-auto mx-auto rounded-lg shadow-sm shadow-neutral-100/50 dark:shadow-black/50 dark:shadow-sm">
+              <span class="block text-xs text-neutral-400 mt-2 gallery-img-desc dark:text-neutral-500">{{ .name }}</span>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{ partial "artalk.html" . }}
+
+        {{ partial "footer.html" . }}
+      </div>
+    </div>
+  </article>
+
+  {{ partial "scripts.html" . }}
+  {{ if .Site.Params.extraBody }}
+  {{ .Site.Params.extraBody | safeHTML }}
+  {{ end }}
+
+</body>
+
+</html>

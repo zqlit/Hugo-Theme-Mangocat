@@ -1,0 +1,17 @@
+{
+  "name": "muzhu-blog",
+  "version": "1.0.0",
+  "description": "木竹博客",
+  "scripts": {
+    "build": "hugo",
+    "dev": "hugo server"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "hugo-extended": "^0.152.2",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.18"
+  }
+}

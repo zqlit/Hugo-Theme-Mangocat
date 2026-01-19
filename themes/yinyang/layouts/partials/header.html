@@ -1,0 +1,44 @@
+{{ $curLanguageName := .Site.Language.LanguageName }}
+<header class="sticky top-5 z-50 mb-12">
+  <div class="bg-white backdrop-blur-xl shadow-sm shadow-slate-200/50 rounded-2xl px-6 py-4 flex justify-between items-center transition-all duration-300 hover:shadow-md hover:bg-white dark:bg-neutral-900/70 dark:border dark:border-white/10 dark:hover:bg-neutral-900/80 dark:shadow-none">
+    <div class="font-bold font-display text-2xl">
+      <a href="{{ .Site.LanguagePrefix }}/" class="flex items-center gap-3 text-black no-underline dark:text-white">
+        <img src="https://usj.cc/image/tx7.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover shadow-sm">
+        <span class="hidden sm:block">伍比贰</span>
+      </a>
+    </div>
+    
+    <div class="flex items-center gap-6 text-sm font-medium text-neutral-600 dark:text-neutral-400">
+      <nav class="flex gap-5">
+        {{ range .Site.Params.socials }}
+        <a href="{{ .link }}" {{ if not (hasPrefix .link "/") }}target="_blank"{{ end }} class="hover:text-black transition-colors relative group dark:hover:text-white">
+          {{ .name }}
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full dark:bg-white"></span>
+        </a>
+        {{ end }}
+      </nav>
+
+      {{ range .Site.Languages -}} {{ if ne .LanguageName $curLanguageName }}
+      <div class="border-l border-neutral-300 pl-6 dark:border-neutral-700">
+        <a href="/{{ .Lang }}/" class="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-xs transition-colors dark:bg-neutral-800 dark:hover:bg-neutral-700">{{ .LanguageName }}</a>
+      </div>
+      {{ end }} {{ end }}
+      
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Toggle Dark Mode">
+        <svg id="sun-icon" class="w-5 h-5 hidden dark:block text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="moon-icon" class="w-5 h-5 block dark:hidden text-neutral-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+{{ if .Site.Params.Description }}
+<div class="text-center mb-16 px-4 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+  <p class="text-neutral-500 text-lg font-light tracking-wide italic">{{ .Site.Params.Description }}</p>
+</div>
+{{ end }}
