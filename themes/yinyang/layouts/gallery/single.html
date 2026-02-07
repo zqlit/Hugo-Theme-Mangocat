@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#" class="dark">
+<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
 {{ partial "head.html" . }}
 
 <body>
@@ -10,15 +10,15 @@
           {{ partial "header.html" . }}
         </div>
         <header class="mb-[50px] mt-10">
-          <h1 class="text-2xl font-semibold m-0 max-sm:text-lg text-neutral-900 dark:text-white">{{ .Title }}</h1>
+          <h1 class="text-2xl font-semibold m-0 max-sm:text-lg text-black/90 dark:text-white">{{ .Title }}</h1>
         </header>
 
-        <div class="mb-[50px] prose prose-neutral max-w-full prose-a:underline prose-a:decoration-black prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-code:bg-gray-100 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none dark:prose-invert dark:prose-a:decoration-white dark:prose-blockquote:border-neutral-700 dark:prose-code:bg-neutral-800">
+        <div class="mb-[50px] prose max-w-full prose-headings:text-black/90 prose-p:text-black/80 prose-strong:text-black/90 prose-li:text-black/80 prose-a:underline prose-a:decoration-black/20 hover:prose-a:decoration-black/60 prose-blockquote:border-l-4 prose-blockquote:border-black/20 prose-blockquote:pl-4 prose-code:bg-black/5 prose-code:border prose-code:border-transparent prose-code:text-black/90 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none dark:prose-invert dark:prose-a:decoration-white dark:prose-blockquote:border-neutral-700 dark:prose-code:bg-neutral-800">
           <div class="flex flex-wrap -mx-2 gallery">
             {{ range .Params.gallery }}
             <div class="w-1/2 px-2 mb-5 text-center gallery-img">
-              <img src="{{ .url }}" alt="{{ .name }}" class="max-w-full h-auto mx-auto rounded-lg shadow-sm shadow-neutral-100/50 dark:shadow-black/50 dark:shadow-sm">
-              <span class="block text-xs text-neutral-400 mt-2 gallery-img-desc dark:text-neutral-500">{{ .name }}</span>
+              <img src="{{ .url }}" alt="{{ .name }}" class="max-w-full h-auto mx-auto rounded-lg shadow-sm shadow-black/5 dark:shadow-black/50 dark:shadow-sm">
+              <span class="block text-xs text-black/60 mt-2 gallery-img-desc dark:text-neutral-500">{{ .name }}</span>
             </div>
             {{ end }}
           </div>

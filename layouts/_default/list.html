@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#" class="dark">
+<html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
 {{ partial "head.html" . }}
 
 <body>
@@ -8,36 +8,36 @@
     
     <div class="mt-8 mb-16 animate-fade-in-up">
       <div class="flex items-center gap-4 mb-10 ml-2">
-        <h1 class="text-3xl font-bold text-neutral-900 tracking-tight">{{ .Title | default .Data.Term }}</h1>
-        <span class="px-3 py-1 bg-black/5 rounded-full text-xs font-bold text-neutral-500 uppercase tracking-widest backdrop-blur-sm">
+        <h1 class="text-3xl font-bold text-black tracking-tight">{{ .Title | default .Data.Term }}</h1>
+        <span class="px-3 py-1 bg-black/5 rounded-full text-xs font-bold text-black uppercase tracking-widest backdrop-blur-sm">
           {{ len .Pages }} Posts
         </span>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {{ range .Pages }}
-          <a href="{{ .RelPermalink }}" class="group block p-8 bg-white/60 backdrop-blur-md border border-white/50 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-neutral-200/50 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden hover:bg-white/80 flex flex-col h-full">
+          <a href="{{ .RelPermalink }}" class="group block p-8 bg-white border border-black rounded-3xl shadow-sm hover:shadow-xl hover:shadow-black/5 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden hover:bg-white flex flex-col h-full">
             <div class="flex items-center justify-between mb-6">
-              <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase group-hover:text-neutral-600 transition-colors">
+              <span class="text-xs font-bold text-black tracking-widest uppercase group-hover:text-black transition-colors">
                 {{ .Date.Format "Jan 02, 2006" }}
               </span>
               {{ if .Params.categories }}
                 {{ range first 1 .Params.categories }}
-                <span class="px-2 py-1 bg-neutral-100/80 rounded-md text-[10px] font-bold text-neutral-500 uppercase tracking-wider backdrop-blur-sm group-hover:bg-black/5 transition-colors">
+                <span class="px-2 py-1 bg-white border border-black rounded-md text-[10px] font-bold text-black uppercase tracking-wider backdrop-blur-sm group-hover:bg-black/5 transition-colors">
                   {{ . }}
                 </span>
                 {{ end }}
               {{ end }}
             </div>
             
-            <h3 class="text-xl font-bold text-neutral-900 mb-4 leading-tight group-hover:text-black transition-colors">{{ .Title }}</h3>
+            <h3 class="text-xl font-bold text-black mb-4 leading-tight group-hover:text-black transition-colors">{{ .Title }}</h3>
             
-            <p class="text-neutral-500 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+            <p class="text-black text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
               {{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}
             </p>
             
-            <div class="flex items-center gap-2 mt-auto pt-6 border-t border-neutral-100/50 group-hover:border-neutral-200/50 transition-colors">
-               <span class="text-xs font-medium text-neutral-400 group-hover:text-black transition-colors flex items-center gap-1">
+            <div class="flex items-center gap-2 mt-auto pt-6 border-t border-black group-hover:border-black transition-colors">
+               <span class="text-xs font-medium text-black group-hover:text-black transition-colors flex items-center gap-1">
                  Read Article
                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-1 transition-transform">
                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -46,7 +46,7 @@
             </div>
             
             <!-- Decorative gradient blob on hover -->
-            <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
+            <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-gradient-to-br from-white to-white rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
           </a>
         {{ end }}
       </div>
@@ -55,10 +55,10 @@
       {{ if .Paginator }}
       <div class="mt-16 flex justify-center gap-2">
         {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}" class="px-4 py-2 bg-white/60 backdrop-blur-md border border-white/50 rounded-xl text-sm font-medium text-neutral-600 hover:bg-white hover:text-black hover:shadow-md transition-all">Previous</a>
+        <a href="{{ .Paginator.Prev.URL }}" class="px-4 py-2 bg-white border border-black rounded-xl text-sm font-medium text-black hover:bg-white hover:text-black hover:shadow-md transition-all">Previous</a>
         {{ end }}
         {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}" class="px-4 py-2 bg-white/60 backdrop-blur-md border border-white/50 rounded-xl text-sm font-medium text-neutral-600 hover:bg-white hover:text-black hover:shadow-md transition-all">Next</a>
+        <a href="{{ .Paginator.Next.URL }}" class="px-4 py-2 bg-white border border-black rounded-xl text-sm font-medium text-black hover:bg-white hover:text-black hover:shadow-md transition-all">Next</a>
         {{ end }}
       </div>
       {{ end }}
