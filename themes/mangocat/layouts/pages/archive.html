@@ -1,0 +1,187 @@
+{{ define "main" }}
+<div class="archive-page">
+  <div class="container-pages">
+    <h1 class="pages-title">归档</h1>
+    <p class="pages-desc">所有文章的集合</p>
+  </div>
+
+  <div class="archive-container">
+    {{ $pages := where .Site.RegularPages "Type" "posts" }}
+    {{ $grouped := $pages.GroupByDate "2006-01" }}
+
+    {{ if eq (len $grouped) 0 }}
+      <div class="archive-empty">
+        <p>暂无文章</p>
+      </div>
+    {{ else }}
+      <div class="archive-list">
+        {{ range $grouped }}
+          <div class="archive-year">
+            <h2 class="year-title">{{ .Key }}</h2>
+            <span class="year-count">{{ len .Pages }} 篇</span>
+
+            <ul class="post-list">
+              {{ range .Pages }}
+                <li class="post-item">
+                  <a href="{{ .RelPermalink }}" class="post-link">
+                    <span class="post-date">{{ .Date.Format "01-02" }}</span>
+                    <span class="post-title">{{ .Title }}</span>
+                    {{ with .Params.categories }}
+                      <span class="post-category">
+                        <i class="ri-folder-line"></i>
+                        {{ index . 0 }}
+                      </span>
+                    {{ end }}
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</div>
+
+<style>
+.archive-page {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 0 20px 4rem;
+}
+
+.archive-container {
+  position: relative;
+}
+
+.archive-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--desc-color);
+  background: var(--card-bg);
+  border-radius: var(--radius);
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.archive-year {
+  position: relative;
+}
+
+.year-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-bottom: 0.25rem;
+  display: inline-block;
+}
+
+.year-count {
+  font-size: 0.85rem;
+  color: var(--desc-color);
+  margin-left: 12px;
+  font-weight: 400;
+}
+
+.archive-year .post-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.archive-year .post-item {
+  padding: 0.875rem 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.archive-year .post-item:hover {
+  transform: translateX(8px);
+  background: var(--hover-color);
+  border-color: var(--border-color);
+}
+
+.archive-year .post-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.archive-year .post-date {
+  font-size: 0.85rem;
+  color: var(--desc-color);
+  font-variant-numeric: tabular-nums;
+  min-width: 50px;
+}
+
+.archive-year .post-title {
+  font-size: 1rem;
+  color: var(--title-color);
+  transition: color 0.25s ease;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.archive-year .post-item:hover .post-title {
+  color: var(--theme-color);
+}
+
+.archive-year .post-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--theme-color);
+  background: rgba(46, 131, 211, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.archive-year .post-category i {
+  font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+  .archive-page {
+    padding: 0 15px 3rem;
+  }
+
+  .year-title {
+    font-size: 1.3rem;
+  }
+
+  .year-count {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .archive-year .post-link {
+    flex-wrap: wrap;
+  }
+
+  .archive-year .post-title {
+    order: 2;
+    width: 100%;
+    margin-top: 4px;
+    white-space: normal;
+  }
+
+  .archive-year .post-category {
+    order: 3;
+    margin-top: 8px;
+  }
+}
+</style>
+{{ end }}

@@ -1,0 +1,141 @@
+<script>
+  // 绑定所有事件监听器
+  function bindEventListeners() {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Lazy loading for images
+    if ('IntersectionObserver' in window) {
+      const imgObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            imgObserver.unobserve(img);
+          }
+        });
+      });
+      
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imgObserver.observe(img);
+      });
+    }
+    
+    // 主题切换功能
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.theme = 'light';
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.theme = 'dark';
+        }
+      });
+    }
+    
+    // 导航栏折叠功能
+    const sidebarNav = document.getElementById('sidebar-nav');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const foldToggle = document.querySelector('.fold-toggle');
+
+    // 打开侧边栏
+    function openSidebar() {
+      sidebarNav.classList.add('active');
+      sidebarOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭侧边栏
+    function closeSidebar() {
+      sidebarNav.classList.remove('active');
+      sidebarOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 绑定事件
+    if (foldToggle) {
+      foldToggle.addEventListener('click', openSidebar);
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+
+    // ESC键关闭侧边栏
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSidebar();
+      }
+    });
+    
+    // 当前页面导航高亮 - 顶部导航
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
+        link.classList.add('active');
+        const icon = link.querySelector('.nav-icon');
+        if (icon) {
+          icon.style.display = 'inline-block';
+        }
+      }
+    });
+
+    // 侧边栏当前页面高亮
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
+        link.classList.add('active');
+      }
+    });
+    // 滚动时隐藏 header
+    let lastScrollY = 0;
+    const header = document.querySelector('.header');
+    
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // 向下滚动且超过100px，隐藏 header
+        header.classList.add('nav-hidden');
+      } else {
+        // 向上滚动或回到顶部，显示 header
+        header.classList.remove('nav-hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+    });
+  }
+  
+  // 初始绑定
+  bindEventListeners();
+  
+  // 在 htmx 加载完成后重新绑定事件监听器
+  document.addEventListener('htmx:load', function() {
+    bindEventListeners();
+  });
+</script>
+
+{{ with .Site.Params.twikooUrl }}
+<!-- Twikoo 评论系统 -->
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js"></script>
+<script>
+  twikoo.init({
+    envId: '{{ . }}',
+    el: '#twikoo',
+    lang: 'zh-CN'
+  });
+</script>
+{{ end }}

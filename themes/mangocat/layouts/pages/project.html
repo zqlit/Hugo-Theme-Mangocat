@@ -1,0 +1,345 @@
+{{ define "main" }}
+<div class="project-page">
+  <div class="container-pages">
+    <h1 class="pages-title">{{ with .Title }}{{ . }}{{ else }}项目{{ end }}</h1>
+    <p class="pages-desc">{{ with .Params.subtitle }}{{ . }}{{ else }}记录我的开源项目与作品{{ end }}</p>
+  </div>
+
+  <div class="page-content">
+    {{ with .Site.Params.github }}
+    <section class="contribution-section">
+      <div class="section-header">
+        <i class="ri-github-fill" style="font-size:1.25rem;color:var(--theme-color);"></i>
+        <h2 class="section-title">GitHub 贡献</h2>
+      </div>
+      <div class="contribution-chart">
+        <img src="https://ghchart.rshah.org/{{ . }}" alt="GitHub Contributions" loading="lazy">
+      </div>
+      <p class="contribution-hint">过去一年的代码提交记录</p>
+    </section>
+    {{ end }}
+
+    {{ with site.Data.projects.projects }}
+    <section class="projects-section">
+      <div class="section-header">
+        <i class="ri-folder-3-line" style="font-size:1.25rem;color:var(--theme-color);"></i>
+        <h2 class="section-title">我的项目</h2>
+        <span class="project-count">共 {{ len . }} 个项目</span>
+      </div>
+
+      <div class="projects-grid">
+        {{ range . }}
+        <article class="project-card" {{ with .githubUrl }}data-repo="{{ . }}"{{ end }}>
+          <div class="language-tag">
+            <i class="ri-code-s-slash-line language-icon"></i>
+            <span>{{ .language }}</span>
+          </div>
+
+          <div class="card-header">
+            <div class="header-main">
+              <h3 class="project-name">
+                <a href="{{ with .githubUrl }}{{ . }}{{ else }}{{ .demoUrl }}{{ end }}" class="project-link" target="_blank" rel="noopener">
+                  <i class="ri-github-line link-icon"></i>
+                  {{ .name }}
+                </a>
+              </h3>
+              {{ with .status }}
+              {{ $cls := "status-developing" }}
+              {{ if eq . "已完成" }}{{ $cls = "status-completed" }}{{ end }}
+              {{ if eq . "维护中" }}{{ $cls = "status-maintaining" }}{{ end }}
+              <span class="status-badge {{ $cls }}">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+
+          <p class="project-description">{{ .description }}</p>
+
+          <div class="card-footer">
+            <div class="stat-group">
+              <span class="stat-item">
+                <i class="ri-star-line stat-icon"></i>
+                <span class="stat-value stars">-</span>
+              </span>
+              <span class="stat-item">
+                <i class="ri-git-branch-line stat-icon"></i>
+                <span class="stat-value forks">-</span>
+              </span>
+            </div>
+            {{ with .demoUrl }}
+            <a href="{{ . }}" class="demo-link" target="_blank" rel="noopener">
+              <i class="ri-external-link-line demo-icon"></i>
+              预览
+            </a>
+            {{ end }}
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+  </div>
+</div>
+
+<script>
+(function(){
+  function fmt(n){ if(n>=1000) return (n/1000).toFixed(1)+'k'; return String(n); }
+  async function load(card){
+    var url = card.getAttribute('data-repo');
+    if(!url) return;
+    var m = url.match(/github\.com\/([^\/]+)\/([^\/\?#]+)/);
+    if(!m) return;
+    try{
+      var r = await fetch('https://api.github.com/repos/'+m[1]+'/'+m[2]);
+      if(!r.ok) return;
+      var d = await r.json();
+      var s = card.querySelector('.stars'); var f = card.querySelector('.forks');
+      if(s) s.textContent = fmt(d.stargazers_count||0);
+      if(f) f.textContent = fmt(d.forks_count||0);
+    }catch(e){}
+  }
+  document.querySelectorAll('.project-card[data-repo]').forEach(load);
+})();
+</script>
+
+<style>
+.project-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 4rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.contribution-section,
+.projects-section {
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight);
+  color: var(--title-color);
+  margin: 0;
+}
+
+.project-count {
+  margin-left: auto;
+  font-size: var(--font-desc-size);
+  color: var(--desc-color);
+}
+
+.contribution-chart {
+  overflow-x: auto;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.contribution-chart img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.contribution-hint {
+  text-align: center;
+  font-size: var(--font-desc-size);
+  color: var(--desc-color);
+  margin: 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.project-card {
+  border-radius: var(--radius);
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 24px var(--shadow-color);
+  transform: translateY(-3px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.project-name {
+  font-size: calc(var(--font-title-size) - 1px);
+  font-weight: var(--font-weight);
+  margin: 0;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--title-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.project-link:hover {
+  color: var(--theme-color);
+}
+
+.link-icon {
+  font-size: 16px;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.status-developing {
+  background: rgba(46, 131, 211, 0.1);
+  color: var(--theme-color);
+}
+
+.status-completed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.status-maintaining {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.language-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.08;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.language-tag span {
+  display: none;
+}
+
+.language-icon {
+  font-size: 72px;
+  color: var(--theme-color);
+}
+
+.project-description {
+  font-size: var(--font-text-size);
+  color: var(--desc-color);
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.stat-group {
+  display: flex;
+  gap: var(--gap);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--desc-color);
+}
+
+.stat-icon {
+  font-size: 16px;
+}
+
+.stat-value {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--theme-color);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.demo-link:hover {
+  background: var(--theme-color);
+  color: white;
+}
+
+.demo-icon {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .project-page {
+    padding: 0 15px 3rem;
+  }
+  
+  .contribution-section,
+  .projects-section {
+    padding: 1.5rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+{{ end }}

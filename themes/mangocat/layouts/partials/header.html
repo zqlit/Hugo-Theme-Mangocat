@@ -1,0 +1,75 @@
+{{ $avatar := .Site.Params.profile.avatar | default .Site.Params.avatar | default "/favicon.png" }}
+{{ $name := .Site.Params.profile.name | default .Site.Params.author }}
+<header class="header">
+    <div class="Nav-container">
+        <div class="logo-nav">
+            <a href="{{ "/" | relURL }}" class="logo-link" title="首页">
+                <img src="{{ $avatar }}" alt="{{ $name }}" class="logo-avatar" />
+                <span class="logo-text">{{ $name }}</span>
+            </a>
+        </div>
+        <div class="main-nav">
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="{{ "/" | relURL }}" class="nav-link" data-identifier="home">
+                        <i class="ri-home-line nav-icon" style="display: none;"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                {{ range .Site.Params.menu }}
+                    {{ $ic := "ri-file-line" }}
+                    {{ if eq .identifier "archive" }}{{ $ic = "ri-archive-line" }}
+                    {{ else if eq .identifier "about" }}{{ $ic = "ri-user-line" }}
+                    {{ else if eq .identifier "link" }}{{ $ic = "ri-link-line" }}
+                    {{ else if eq .identifier "project" }}{{ $ic = "ri-folder-line" }}
+                    {{ else if eq .identifier "circle" }}{{ $ic = "ri-chat-3-line" }}
+                    {{ end }}
+                    <li class="nav-item">
+                        <a href="{{ .url | relURL }}" class="nav-link" data-identifier="{{ .identifier }}">
+                            <i class="{{ $ic }} nav-icon" style="display: none;"></i>
+                            <span>{{ .name }}</span>
+                        </a>
+                    </li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="tool-nav">
+            <button class="theme-toggle" aria-label="切换主题">
+                <i class="ri-moon-line theme-toggle-icon"></i>
+            </button>
+            <button class="fold-toggle" aria-label="折叠导航">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 折叠导航栏 -->
+    <nav class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-links">
+            <li class="sidebar-item">
+                <a href="{{ "/" | relURL }}" class="sidebar-link">
+                    <i class="ri-home-line sidebar-icon"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            {{ range .Site.Params.menu }}
+                {{ $ic := "ri-file-line" }}
+                {{ if eq .identifier "archive" }}{{ $ic = "ri-archive-line" }}
+                {{ else if eq .identifier "about" }}{{ $ic = "ri-user-line" }}
+                {{ else if eq .identifier "link" }}{{ $ic = "ri-link-line" }}
+                {{ else if eq .identifier "project" }}{{ $ic = "ri-folder-line" }}
+                {{ else if eq .identifier "circle" }}{{ $ic = "ri-chat-3-line" }}
+                {{ end }}
+                <li class="sidebar-item">
+                    <a href="{{ .url | relURL }}" class="sidebar-link">
+                        <i class="{{ $ic }} sidebar-icon"></i>
+                        <span>{{ .name }}</span>
+                    </a>
+                </li>
+            {{ end }}
+        </ul>
+    </nav>
+
+    <!-- 遮罩层 -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+</header>

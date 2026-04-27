@@ -1,0 +1,225 @@
+{{ define "main" }}
+    <div class="article-container">
+        <article class="article-card">
+            <header class="article-header{{ if not .Params.cover }} no-cover{{ end }}">
+                {{ if .Params.cover }}
+                    <div class="article-cover">
+                        <div class="article-cover-inner">
+                            <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
+                        </div>
+                    </div>
+                {{ end }}
+                <div class="article-header-content">
+                    <h1 class="article-title">{{ .Title }}</h1>
+                    <div class="article-meta">
+                        <span class="date">
+                            <i class="ri-calendar-line"></i>
+                            {{ .Date.Format "2006-01-02" }}
+                        </span>
+                        {{ if .Params.categories }}
+                            <span class="category">
+                                <i class="ri-folder-line"></i>
+                                {{ range .Params.categories }}
+                                    {{ . }}
+                                {{ end }}
+                            </span>
+                        {{ end }}
+                        {{ if .Params.tags }}
+                            {{ range first 3 .Params.tags }}
+                                <span class="tag">
+                                    <i class="ri-hashtag"></i>
+                                    {{ . }}
+                                </span>
+                            {{ end }}
+                        {{ end }}
+                        <span class="word-count">
+                            <i class="ri-file-text-line"></i>
+                            {{ .WordCount }} 字
+                        </span>
+                    </div>
+                </div>
+            </header>
+            <div class="article-content">
+                {{ .Content }}
+            </div>
+        </article>
+    </div>
+    
+    <!-- 文章导航 -->
+    {{ if eq .Type "posts" }}
+    <div class="pagination">
+        <div class="pagination-buttons">
+            {{ with .PrevInSection }}
+                <a href="{{ .RelPermalink }}" class="pagination-btn prev">
+                    <i class="ri-arrow-left-line"></i>
+                    <div class="pagination-info">
+                        <span class="pagination-label">上一篇</span>
+                        <span class="pagination-title">{{ .Title }}</span>
+                    </div>
+                </a>
+            {{ end }}
+            {{ with .NextInSection }}
+                <a href="{{ .RelPermalink }}" class="pagination-btn next">
+                    <div class="pagination-info">
+                        <span class="pagination-label">下一篇</span>
+                        <span class="pagination-title">{{ .Title }}</span>
+                    </div>
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+    
+    <!-- 评论区 -->
+    {{ $c := .Site.Params.comment }}
+    {{ if and $c $c.enable }}
+        <div class="article-container">
+            <div class="comments">
+                {{ if eq $c.provider "twikoo" }}
+                    <div id="twikoo" class="twikoo-comments"></div>
+                    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.16/dist/twikoo.all.min.js"></script>
+                    <script>
+                        twikoo.init({
+                            envId: '{{ $c.twikoo.envId }}',
+                            el: '#twikoo',
+                            path: '{{ $c.twikoo.path | default "auto" }}'
+                        });
+                    </script>
+                {{ else if eq $c.provider "artalk" }}
+                    <div id="Artalk"></div>
+                    <link href="https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.css" rel="stylesheet">
+                    <script src="https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.js"></script>
+                    <script>
+                        new Artalk({
+                            el: '#Artalk',
+                            pageKey: '{{ .RelPermalink }}',
+                            pageTitle: '{{ .Title }}',
+                            server: '{{ $c.artalk.server }}',
+                            site: '{{ $c.artalk.site }}',
+                            {{ with $c.artalk.akismetKey }}
+                            akismetKey: '{{ . }}',
+                            {{ end }}
+                            darkMode: document.documentElement.classList.contains('dark')
+                        });
+                    </script>
+                {{ end }}
+            </div>
+        </div>
+    {{ end }}
+
+<style>
+.article-container {
+    max-width: var(--width);
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.article-card {
+    padding: 0;
+}
+
+.article-header {
+    margin-bottom: 20px;
+}
+
+.article-cover {
+    margin-bottom: 16px;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.article-cover-inner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: var(--border-color);
+}
+
+.article-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius);
+}
+
+.article-header.no-cover .article-header-content {
+    padding: 0;
+    text-align: left;
+}
+
+.article-header-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.article-title {
+    font-size: 1.5rem !important;
+    font-weight: 600;
+    color: var(--title-color);
+    display: block;
+    line-height: 1.4 !important;
+    margin: 0 0 12px 0 !important;
+}
+
+.article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--desc-color);
+}
+
+.article-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.article-meta .tag {
+    display: none;
+}
+
+.article-meta .tag:nth-child(-n+3) {
+    display: inline-flex;
+}
+
+@media (max-width: 768px) {
+    .article-container {
+        padding: 0 12px;
+    }
+    
+    .article-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .article-meta {
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+    
+    .article-cover img {
+        max-height: 200px;
+    }
+    
+    .pagination {
+        padding: 0 12px;
+    }
+    
+    .pagination-btn {
+        padding: 12px 14px;
+    }
+    
+    .pagination-label {
+        font-size: 11px;
+    }
+    
+    .pagination-title {
+        font-size: 13px;
+    }
+}
+</style>
+{{ end }}

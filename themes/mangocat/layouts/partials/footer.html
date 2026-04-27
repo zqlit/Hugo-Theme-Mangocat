@@ -1,0 +1,108 @@
+<footer class="footer">
+    <div class="footer-container">
+        <!-- 主要信息区 -->
+        <div class="footer-info">
+            <!-- 版权信息 -->
+            <div class="copyright">
+                <span style="font-weight: bold; font-size: 1.1em;">&copy;</span>
+                {{ now.Format "2006" }} {{ .Site.Params.author }}
+            </div>
+
+            <!-- 技术支持 -->
+            <div class="powered">
+                Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> &amp;
+                <a href="https://github.com/Almango/MangoCat" target="_blank">MangoCat</a>
+                {{ with .Site.Params.developer.themeVersion }}<span class="version">v{{ . }}</span>{{ end }}
+            </div>
+
+            <!-- 备案信息 -->
+            {{ with .Site.Params.icp }}
+            <div class="icp">
+                <a href="{{ .url | default "https://icp.gov.moe/?keyword=20240146" }}" target="_blank">{{ .text | default . }}</a>
+            </div>
+            {{ else }}
+            <div class="icp">
+                <a href="https://icp.gov.moe/?keyword=20240146" target="_blank">萌ICP备20240146号</a>
+            </div>
+            {{ end }}
+
+            <!-- RSS -->
+            <div class="rss">
+                <a href="{{ "/index.xml" | relURL }}" target="_blank">RSS订阅</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        border-top: 1px solid var(--border-color);
+        color: var(--footer-color, var(--desc-color));
+        padding: 2rem 0;
+        margin-top: 4rem;
+    }
+
+    .footer-container {
+        max-width: var(--width);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        text-align: center;
+    }
+
+    .footer-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-info > div,
+    .footer-info > span,
+    .footer-info .version {
+        font-family: 'AlimamaFangYuanTi', 'Satoshi', system-ui, sans-serif;
+        font-size: calc(var(--font-desc-size) + 2px);
+        font-weight: 400;
+        color: var(--footer-color, var(--desc-color));
+        opacity: 0.8;
+        margin: 0;
+        letter-spacing: 0.01em;
+        line-height: 1.5;
+    }
+
+    .footer-info .separator {
+        opacity: 0.5;
+    }
+
+    .footer a {
+        font-family: 'AlimamaFangYuanTi', 'Satoshi', system-ui, sans-serif;
+        color: var(--footer-color, var(--desc-color));
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .footer a:hover {
+        color: var(--theme-color);
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+        .footer-container {
+            padding: 0 1rem;
+        }
+        .footer-info {
+            gap: 0.5rem;
+        }
+        .copyright, .powered, .icp {
+            font-size: var(--font-desc-size);
+            letter-spacing: 0.01em;
+        }
+        .version {
+            font-size: 0.7rem;
+        }
+    }
+</style>

@@ -1,0 +1,112 @@
+{{ define "main" }}
+  {{ $friends := .Site.Data.friends.friends }}
+  <div class="container-pages">
+    <h1 class="pages-title">友链</h1>
+    <p class="pages-desc">与各位博主无限进步</p>
+  </div>
+  <div class="container-links">
+    <div class="links-grid animate__animated animate__fadeInUp">
+      {{ range $i, $link := $friends }}
+        <div class="link-card" style="animation-delay: {{ mul $i 0.05 }}s" data-key="{{ .name }}">
+          <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="link-card-inner">
+            <div class="link-avatar-container">
+              <img src="{{ .avatar }}" alt="{{ .name }}" class="link-avatar" loading="lazy" />
+            </div>
+            <div class="link-info">
+              <div class="link-header">
+                <h3 class="link-name">{{ .name }}</h3>
+                <i class="ri-arrow-right-up-line link-icon"></i>
+              </div>
+              <p class="link-description">{{ .desc }}</p>
+            </div>
+          </a>
+        </div>
+      {{ end }}
+    </div>
+    <br>
+    <div class="link-page-content markdown-body">
+      {{ .Content }}
+    </div>
+    {{ partial "comments.html" . }}
+  </div>
+
+  <style>
+    .container-pages { max-width: var(--width); margin: 0 auto; padding: 0 20px; text-align: center; }
+    .pages-title { font-size: calc(var(--font-title-size) * 1.5); font-weight: var(--font-weight); margin: 0 0 0.5rem; color: var(--title-color); }
+    .pages-desc { color: var(--desc-color); margin: 0; }
+
+    .container-links { max-width: var(--width); margin: 0 auto; padding: 0 20px 3rem; }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--gap, 16px);
+      margin-bottom: 40px;
+    }
+
+    .link-card {
+      background-color: var(--card-bg, #fff);
+      border: 1px solid var(--border-color, rgba(0,0,0,0.08));
+      border-radius: var(--radius, 12px);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .link-card:hover {
+      border-color: var(--theme-color, #ff6b6b);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.08));
+    }
+
+    .link-card-inner {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      text-decoration: none;
+      color: var(--text-color);
+      gap: 12px;
+    }
+
+    .link-avatar-container { flex-shrink: 0; }
+    .link-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--card-bg, #f4f4f4);
+    }
+
+    .link-info { flex: 1; min-width: 0; }
+    .link-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .link-name {
+      font-size: var(--font-text-size, 1rem);
+      font-weight: 500;
+      color: var(--title-color, var(--text-color));
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-icon { font-size: 18px; color: var(--text-color); opacity: 0.6; }
+    .link-description {
+      font-size: var(--font-desc-size, 0.85rem);
+      color: var(--desc-color, var(--text-color));
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      opacity: 0.85;
+    }
+
+    .link-page-content { margin-top: 1.5rem; }
+
+    @media (max-width: 768px) {
+      .links-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+{{ end }}

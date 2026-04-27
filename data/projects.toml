@@ -1,0 +1,26 @@
+[[projects]]
+name = "MangoCat"
+description = "基于 Astro 框架开发的个人博客主题项目，以简洁、现代的设计风格重构博客体验。(项目开发中)"
+demoUrl = "https://blog.almango.cn/"
+githubUrl = "https://github.com/Almango/MangoCat"
+tags = ["Astro", "博客", "主题"]
+language = "Astro"
+status = "开发中"
+
+[[projects]]
+name = "SimulateMoki-sjzxd"
+description = "基于 HTML + JS 实现的三角洲行动烽火地带网页版摸金模拟器，专注于还原游戏中的核心摸金体验。"
+demoUrl = "https://moki.almango.cn/"
+githubUrl = "https://github.com/Almango/SimulateMoki-sjzxd"
+tags = ["HTML", "JS", "游戏"]
+language = "JavaScript"
+status = "已完成"
+
+[[projects]]
+name = "NavGo"
+description = "基于 Astro 开发的简约实用的自用型导航器，专注于为个人提供便捷的导航服务。"
+demoUrl = "https://navgo.almango.cn/"
+githubUrl = "https://github.com/Almango/NavGo"
+tags = ["Astro", "JSON", "导航"]
+language = "Astro"
+status = "已完成"

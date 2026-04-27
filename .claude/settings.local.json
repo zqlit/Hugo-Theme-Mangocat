@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl *)",
+      "Bash(xargs grep *)",
+      "Bash(mkdir -p /tmp/mangocat-src)",
+      "Bash(git clone *)",
+      "Read(//tmp/**)",
+      "Read(//tmp/mangocat-src/**)",
+      "Bash(hugo --quiet)",
+      "Bash(hugo)"
+    ]
+  }
+}

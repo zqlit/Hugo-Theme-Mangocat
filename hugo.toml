@@ -1,8 +1,9 @@
-baseURL = "https://muzhui.cn/"
-languageCode = "en-us"
-title = "槌"
-theme = "yinyang"
+baseURL = "https://blog.almango.cn/"
+languageCode = "zh-CN"
+title = "Almango"
+theme = "mangocat"
 DefaultContentLanguage = "cn"
+uglyURLs = true
 
 [markup]
   [markup.goldmark]
@@ -15,28 +16,113 @@ DefaultContentLanguage = "cn"
     tabWidth = 2
 
 [author]
-  name = "王君尧"
-  homepage = "https://muzhui.cn/"
-
+  name = "小赵"
+  homepage = "https://blog.almango.cn/"
 
 [params]
-description = "Ops / Cloud Native / Automation"
+# ----- SiteConfig -----
+subtitle = "天真永不消逝，浪漫至死不渝"
+description = "天真永不消逝，浪漫至死不渝"
+headTitle = "小赵"
+author = "小赵"
+favicon = "/favicon.png"
+siteUrl = "https://blog.almango.cn"
+createTime = "2024-01-23"
+keywords = "blog, technology, programming"
+timezone = "Asia/Shanghai"
 mainSections = ["posts"]
-headTitle = "伍比贰"
-favicon = "/favicon.ico"
-[[params.socials]]
-name = "Posts"
-link = "/posts/"
-[[params.socials]]
-name = "About"
-link = "/about/"
 
+# Pagination
+postsPerPage = 8
 
-# extraCSSFiles = ["css/foo.css", "css/bar.css"]
+# Cover
+coverEnable = true
+
+# Site style
+themeColor = "#1890ff"
+fontFamily = "Inter, sans-serif"
+borderRadius = "12px"
+darkMode = true
+
 extraCSSFiles = []
 
-[params.artalk]
-  server = "https://artalk.muzhui.cn"
-  site = "伍比贰"
+# ----- ProfileConfig -----
+[params.profile]
+name = "小赵"
+avatar = "https://usj.cc/image/avatar/tx7.jpg"
+desc = "天真永不消逝，浪漫至死不渝"
 
-uglyURLs = true
+# ----- CommentConfig -----
+[params.comment]
+enable = true
+provider = "artalk"
+  [params.comment.artalk]
+  server = "https://artalk.usj.cc"
+  site = "小赵"
+  akismetKey = ""
+
+# ----- Developer -----
+[params.developer]
+themeVersion = "5.0.0"
+
+# ----- Categories (icon + color) -----
+[params.categories]
+  [params.categories."年度总结"]
+  icon = "tabler:carambola"
+  color = "#ffae00ff"
+  [params.categories."感言"]
+  icon = "tabler:heart"
+  color = "#cc2b1fff"
+  [params.categories."日常"]
+  icon = "tabler:edit"
+  color = "#b83f81ff"
+  [params.categories."游戏"]
+  icon = "tabler:device-gamepad-2"
+  color = "#cc6a19ff"
+  [params.categories."技能"]
+  icon = "tabler:braces"
+  color = "#2d7be0ff"
+  [params.categories."随笔"]
+  icon = "tabler:pencil"
+  color = "#1cb17dff"
+
+# ----- NavConfig -----
+[[params.menu]]
+name = "归档"
+url = "/archive.html"
+identifier = "archive"
+icon = "tabler:archive"
+[[params.menu]]
+name = "友链"
+url = "/link.html"
+identifier = "link"
+icon = "tabler:link"
+[[params.menu]]
+name = "鱼塘"
+url = "/circle.html"
+identifier = "circle"
+icon = "tabler:bubble-text"
+[[params.menu]]
+name = "项目"
+url = "/project.html"
+identifier = "project"
+icon = "tabler:layout-kanban"
+[[params.menu]]
+name = "关于"
+url = "/about.html"
+identifier = "about"
+icon = "tabler:user"
+
+# ----- Social links -----
+[[params.socialLinks]]
+name = "GitHub"
+url = "https://github.com"
+icon = "github"
+[[params.socialLinks]]
+name = "Twitter"
+url = "https://twitter.com"
+icon = "twitter"
+[[params.socialLinks]]
+name = "Email"
+url = "mailto:example@example.com"
+icon = "email"

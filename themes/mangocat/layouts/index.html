@@ -1,0 +1,83 @@
+{{ define "main" }}
+    {{ $perPage := .Site.Params.postsPerPage | default 8 }}
+    {{ $cats := .Site.Params.categories }}
+    {{ $allPosts := where .Site.RegularPages "Type" "posts" }}
+    {{ $paginator := .Paginate $allPosts $perPage }}
+
+    <div class="container">
+        {{ partial "topme.html" . }}
+        <div class="posts-grid">
+        {{ range $index, $post := $paginator.Pages }}
+            {{ $catName := "" }}
+            {{ with $post.Params.categories }}{{ $catName = index . 0 }}{{ end }}
+            {{ $catIcon := "ri-folder-line" }}
+            {{ $catColor := "" }}
+            {{ if and $catName $cats }}
+                {{ with index $cats $catName }}
+                    {{ $catIcon = .icon | default $catIcon }}
+                    {{ $catColor = .color | default "" }}
+                {{ end }}
+            {{ end }}
+            {{ $words := $post.WordCount }}
+            {{ $wordStr := printf "%d" $words }}
+            {{ if ge $words 1000 }}{{ $wordStr = printf "%.1fk" (div (float $words) 1000.0) }}{{ end }}
+            <article class="post-card" style="animation: slideIn 0.5s ease forwards; animation-delay: {{ mul $index 0.05 }}s; opacity: 0;{{ with $catColor }} --cat-color: {{ . }};{{ end }}">
+              <a href="{{ $post.RelPermalink }}" class="card-link">
+                <div class="card-content">
+                  <h3 class="card-title">{{ $post.Title }}</h3>
+                  <p class="card-excerpt">{{ with $post.Description }}{{ . }}{{ else }}{{ $post.Summary | plainify | truncate 100 }}{{ end }}</p>
+                  <div class="card-meta">
+                    {{ with $catName }}
+                      <span class="card-category"{{ with $catColor }} style="color: {{ . }};"{{ end }}>
+                        <i class="{{ $catIcon }}"></i>
+                        {{ . }}
+                      </span>
+                    {{ end }}
+                    {{ with $post.Params.tags }}
+                      <span class="card-tags">
+                        {{ range . }}
+                          <span class="card-tag"><i class="ri-price-tag-3-line"></i>{{ . }}</span>
+                        {{ end }}
+                      </span>
+                    {{ end }}
+                    <span class="card-words">
+                      <i class="ri-text"></i>
+                      {{ $wordStr }} 字
+                    </span>
+                    <span class="card-date">
+                      <i class="ri-calendar-line"></i>
+                      {{ $post.Date.Format "2006-01-02" }}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+        {{ end }}
+        </div>
+    </div>
+
+    <!-- 分页导航 -->
+    {{ if or $paginator.HasPrev $paginator.HasNext }}
+        <div class="pagination">
+            <div class="pagination-buttons">
+                {{ if $paginator.HasPrev }}
+                    <a href="{{ $paginator.Prev.URL }}" class="pagination-btn" aria-label="上一页">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </a>
+                {{ end }}
+                {{ if $paginator.HasNext }}
+                    <a href="{{ $paginator.Next.URL }}" class="pagination-btn" aria-label="下一页">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                {{ end }}
+            </div>
+            <div class="pagination-info">
+                {{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}
+            </div>
+        </div>
+    {{ end }}
+{{ end }}

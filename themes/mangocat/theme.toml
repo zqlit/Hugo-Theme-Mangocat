@@ -1,0 +1,46 @@
+name = "MangoCat"
+description = "A clean, modern, high-performance Hugo blog theme"
+license = "MIT"
+tags = ["blog", "clean", "modern", "responsive", "dark mode"]
+features = ["responsive", "dark mode", "SEO friendly", "comments"]
+min_version = "0.150.0"
+
+[author]
+  name = "Almango"
+  homepage = "https://blog.almango.cn"
+
+[params]
+  # 站点配置
+  title = "Almango"
+  subtitle = "天真永不消逝，浪漫至死不渝"
+  author = "Almango"
+  description = "A personal blog built with Hugo"
+  keywords = "blog, technology, programming"
+  languageCode = "zh-CN"
+  timezone = "Asia/Shanghai"
+  
+  # 分页配置
+  postsPerPage = 8
+  
+  # 主题配置
+  themeColor = "#ff6b6b"
+  darkMode = true
+  
+  # 评论系统
+  twikooUrl = ""
+  
+  # 社交链接
+  socialLinks = [
+    { name = "GitHub", url = "https://github.com", icon = "github" },
+    { name = "Twitter", url = "https://twitter.com", icon = "twitter" },
+    { name = "Email", url = "mailto:example@example.com", icon = "email" }
+  ]
+  
+  # 导航菜单
+  menu = [
+    { name = "首页", url = "/" },
+    { name = "归档", url = "/archive" },
+    { name = "关于", url = "/about" },
+    { name = "项目", url = "/project" },
+    { name = "友链", url = "/link" }
+  ]
