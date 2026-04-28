@@ -2,37 +2,34 @@
 {{ $name := .Site.Params.profile.name | default .Site.Params.author }}
 <header class="header">
     <div class="Nav-container">
-        <div class="logo-nav">
-            <a href="{{ "/" | relURL }}" class="logo-link" title="首页">
-                <img src="{{ $avatar }}" alt="{{ $name }}" class="logo-avatar" />
-                <span class="logo-text">{{ $name }}</span>
+        <a href="{{ "/" | relURL }}" class="logo-link" title="首页">
+            <img src="{{ $avatar }}" alt="{{ $name }}" class="logo-avatar" />
+            <span class="logo-text">{{ $name }}</span>
+        </a>
+        
+        <div class="site-title">
+            <a href="{{ "/" | relURL }}" class="title-link">
+                {{ .Site.Title }}
             </a>
         </div>
-        <div class="main-nav">
+        
+        <nav class="main-nav">
             <ul class="nav-links">
                 <li class="nav-item">
                     <a href="{{ "/" | relURL }}" class="nav-link" data-identifier="home">
-                        <i class="ri-home-line nav-icon" style="display: none;"></i>
                         <span>首页</span>
                     </a>
                 </li>
                 {{ range .Site.Params.menu }}
-                    {{ $ic := "ri-file-line" }}
-                    {{ if eq .identifier "archive" }}{{ $ic = "ri-archive-line" }}
-                    {{ else if eq .identifier "about" }}{{ $ic = "ri-user-line" }}
-                    {{ else if eq .identifier "link" }}{{ $ic = "ri-link-line" }}
-                    {{ else if eq .identifier "project" }}{{ $ic = "ri-folder-line" }}
-                    {{ else if eq .identifier "circle" }}{{ $ic = "ri-chat-3-line" }}
-                    {{ end }}
                     <li class="nav-item">
                         <a href="{{ .url | relURL }}" class="nav-link" data-identifier="{{ .identifier }}">
-                            <i class="{{ $ic }} nav-icon" style="display: none;"></i>
                             <span>{{ .name }}</span>
                         </a>
                     </li>
                 {{ end }}
             </ul>
-        </div>
+        </nav>
+        
         <div class="tool-nav">
             <button class="theme-toggle" aria-label="切换主题">
                 <i class="ri-moon-line theme-toggle-icon"></i>

@@ -1,4 +1,4 @@
-@import './animation.css';
+
 
 :root {
     --theme-color: #2e83d3;
@@ -165,6 +165,7 @@ body {
     align-items: center;
     gap: 10px;
     text-decoration: none;
+    display: none;
 }
 
 .logo-avatar {
@@ -178,6 +179,33 @@ body {
     font-weight: var(--font-weight);
     color: var(--text-color);
     white-space: nowrap;
+}
+
+/* 站点标题样式 */
+.site-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.title-link {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--title-color);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .logo-link {
+        display: flex;
+        padding: 2px 8px 2px 2px;
+    }
+    
+    .site-title {
+        display: none;
+    }
 }
 
 .main-nav {
@@ -476,16 +504,25 @@ body {
     text-decoration: none;
     color: var(--text-color);
     display: block;
+    padding: 1rem 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .card-link {
+        padding: 0.875rem 1rem;
+    }
 }
 
 .card-cover {
     height: 180px;
     overflow: hidden;
+    margin: -1rem -1.25rem 1rem;
 }
 
 @media (max-width: 768px) {
     .card-cover {
         height: 140px;
+        margin: -0.875rem -1rem 0.875rem;
     }
 }
 
@@ -498,16 +535,6 @@ body {
 
 .post-card:hover .card-cover img {
     transform: scale(1.05);
-}
-
-.card-content {
-    padding: 1rem 1.25rem;
-}
-
-@media (max-width: 768px) {
-    .card-content {
-        padding: 0.875rem 1rem;
-    }
 }
 
 .card-title {
@@ -846,19 +873,69 @@ body {
 }
 
 .footer {
-    color: var(--text-color);
-    padding: 20px 15px 10px;
+    border-top: 1px solid var(--border-color);
+    color: var(--footer-color, var(--desc-color));
+    padding: 2rem 0;
+    margin-top: 4rem;
     max-width: var(--width);
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     box-sizing: border-box;
     text-align: center;
-    font-size: 0.85rem;
+}
+
+.footer-container {
+    padding: 0 1.5rem;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-info > div {
+    font-family: 'AlimamaFangYuanTi', 'Satoshi', system-ui, sans-serif;
+    font-size: calc(var(--font-desc-size) + 2px);
+    font-weight: 400;
+    color: var(--footer-color, var(--desc-color));
+    opacity: 0.8;
+    margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+}
+
+.footer a {
+    font-family: 'AlimamaFangYuanTi', 'Satoshi', system-ui, sans-serif;
+    color: var(--footer-color, var(--desc-color));
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footer a:hover {
+    color: var(--theme-color);
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
     .footer {
-        padding: 16px 12px 8px;
-        font-size: 0.8rem;
+        padding: 1.5rem 0;
+        margin-top: 3rem;
+    }
+    .footer-container {
+        padding: 0 1rem;
+    }
+    .footer-info {
+        gap: 0.5rem;
+    }
+    .footer-info > div {
+        font-size: var(--font-desc-size);
+        letter-spacing: 0.01em;
+    }
+    .version {
+        font-size: 0.7rem;
     }
 }
 
@@ -869,12 +946,42 @@ body {
 
 .htmx-swapping {
   opacity: 0;
-  transition: opacity 300ms ease-in-out;
+  transform: translateY(20px);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
 
 .htmx-settling {
   opacity: 1;
-  transition: opacity 300ms ease-in-out;
+  transform: translateY(0);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* 页面加载动画 */
+.main-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* 导航链接点击动画 */
+.nav-link, .sidebar-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::after, .sidebar-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--theme-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after, .sidebar-link:hover::after {
+  width: 100%;
 }
 
 .profile-header {

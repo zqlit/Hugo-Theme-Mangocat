@@ -3,7 +3,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if .IsHome }}{{ .Site.Params.title }}{{ else }}{{ .Title }} - {{ .Site.Params.title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <meta name="keywords" content="{{ .Site.Params.keywords }}">
+  <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
   <meta name="author" content="{{ .Site.Params.author }}">
   <meta name="robots" content="index, follow">
 
@@ -12,22 +14,24 @@
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:site_name" content="{{ .Site.Params.title }}">
+  <meta property="og:locale" content="{{ .Site.LanguageCode }}">
   {{ with .Params.cover }}
   <meta property="og:image" content="{{ . }}">
-  {{ end }}
-  {{ with .Site.Params.siteUrl }}
-  <meta property="og:see_also" content="{{ . }}">
+  <meta property="og:image:alt" content="{{ $.Title }}">
   {{ end }}
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Params.title }}{{ else }}{{ .Title }}{{ end }}">
   <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="twitter:site" content="{{ .Site.Params.author }}">
   {{ with .Params.cover }}
   <meta name="twitter:image" content="{{ . }}">
+  <meta name="twitter:image:alt" content="{{ $.Title }}">
   {{ end }}
 
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="icon" href="{{ .Site.Params.favicon | default "/favicon.png" }}" type="image/png">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ "sitemap.xml" | relURL }}">
 
   <style>
     :root {

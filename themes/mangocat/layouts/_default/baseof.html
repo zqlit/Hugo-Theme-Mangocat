@@ -2,7 +2,7 @@
 <html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
 {{ partial "head.html" . }}
 
-<body hx-boost="true" hx-indicator="body">
+<body hx-boost="true" hx-indicator="body" hx-swap="innerHTML transition:300ms">
   {{ partial "header.html" . }}
   
   <main class="main-content">

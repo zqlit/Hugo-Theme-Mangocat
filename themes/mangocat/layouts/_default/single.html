@@ -1,45 +1,19 @@
 {{ define "main" }}
     <div class="article-container">
-        <article class="article-card">
-            <header class="article-header{{ if not .Params.cover }} no-cover{{ end }}">
-                {{ if .Params.cover }}
-                    <div class="article-cover">
-                        <div class="article-cover-inner">
-                            <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
-                        </div>
-                    </div>
+        {{ if .Params.cover }}
+            <div class="article-cover">
+                <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
+            </div>
+        {{ end }}
+        <article class="article-content">
+            <h1 class="article-title">{{ .Title }}</h1>
+            <div class="article-meta">
+                发表于 {{ .Date.Format "2006-01-02" }}
+                {{ if .Params.categories }}
+                    | 分类 {{ range .Params.categories }}{{ . }}{{ end }}
                 {{ end }}
-                <div class="article-header-content">
-                    <h1 class="article-title">{{ .Title }}</h1>
-                    <div class="article-meta">
-                        <span class="date">
-                            <i class="ri-calendar-line"></i>
-                            {{ .Date.Format "2006-01-02" }}
-                        </span>
-                        {{ if .Params.categories }}
-                            <span class="category">
-                                <i class="ri-folder-line"></i>
-                                {{ range .Params.categories }}
-                                    {{ . }}
-                                {{ end }}
-                            </span>
-                        {{ end }}
-                        {{ if .Params.tags }}
-                            {{ range first 3 .Params.tags }}
-                                <span class="tag">
-                                    <i class="ri-hashtag"></i>
-                                    {{ . }}
-                                </span>
-                            {{ end }}
-                        {{ end }}
-                        <span class="word-count">
-                            <i class="ri-file-text-line"></i>
-                            {{ .WordCount }} 字
-                        </span>
-                    </div>
-                </div>
-            </header>
-            <div class="article-content">
+            </div>
+            <div class="article-body">
                 {{ .Content }}
             </div>
         </article>
@@ -47,24 +21,16 @@
     
     <!-- 文章导航 -->
     {{ if eq .Type "posts" }}
-    <div class="pagination">
-        <div class="pagination-buttons">
+    <div class="article-container">
+        <div class="post-navigation">
             {{ with .PrevInSection }}
-                <a href="{{ .RelPermalink }}" class="pagination-btn prev">
-                    <i class="ri-arrow-left-line"></i>
-                    <div class="pagination-info">
-                        <span class="pagination-label">上一篇</span>
-                        <span class="pagination-title">{{ .Title }}</span>
-                    </div>
+                <a href="{{ .RelPermalink }}" class="nav-item prev">
+                    <span class="nav-title">&larr; {{ .Title }}</span>
                 </a>
             {{ end }}
             {{ with .NextInSection }}
-                <a href="{{ .RelPermalink }}" class="pagination-btn next">
-                    <div class="pagination-info">
-                        <span class="pagination-label">下一篇</span>
-                        <span class="pagination-title">{{ .Title }}</span>
-                    </div>
-                    <i class="ri-arrow-right-line"></i>
+                <a href="{{ .RelPermalink }}" class="nav-item next">
+                    <span class="nav-title">{{ .Title }} &rarr;</span>
                 </a>
             {{ end }}
         </div>
@@ -110,115 +76,122 @@
 
 <style>
 .article-container {
-    max-width: var(--width);
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 15px;
-}
-
-.article-card {
-    padding: 0;
-}
-
-.article-header {
-    margin-bottom: 20px;
+    padding: 0 20px;
 }
 
 .article-cover {
-    margin-bottom: 16px;
-    border-radius: var(--radius);
-    overflow: hidden;
-}
-
-.article-cover-inner {
-    position: relative;
-    width: 100%;
-    height: auto;
-    background-color: var(--border-color);
+    margin: 20px 0;
+    text-align: center;
 }
 
 .article-cover img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
-    max-height: 280px;
-    object-fit: cover;
-    display: block;
-    border-radius: var(--radius);
+    border-radius: 8px;
 }
 
-.article-header.no-cover .article-header-content {
-    padding: 0;
-    text-align: left;
-}
-
-.article-header-content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
+.article-content {
+    margin-bottom: 40px;
 }
 
 .article-title {
-    font-size: 1.5rem !important;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--title-color);
-    display: block;
-    line-height: 1.4 !important;
-    margin: 0 0 12px 0 !important;
+    line-height: 1.3;
+    margin: 0 0 15px;
+    text-align: center;
 }
 
 .article-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--desc-color);
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-.article-meta span {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+.article-body {
+    line-height: 1.8;
+    color: var(--text-color);
 }
 
-.article-meta .tag {
-    display: none;
+.article-body p {
+    margin-bottom: 20px;
 }
 
-.article-meta .tag:nth-child(-n+3) {
-    display: inline-flex;
+.article-body h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--title-color);
+    margin: 30px 0 15px;
+}
+
+.article-body h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--title-color);
+    margin: 25px 0 12px;
+}
+
+.article-body img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+.article-body a {
+    color: var(--theme-color);
+    text-decoration: none;
+}
+
+.article-body a:hover {
+    text-decoration: underline;
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--theme-color);
+}
+
+.comments {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
 }
 
 @media (max-width: 768px) {
     .article-container {
-        padding: 0 12px;
+        padding: 0 15px;
     }
     
     .article-title {
-        font-size: 1.3rem !important;
+        font-size: 1.5rem;
     }
     
     .article-meta {
         font-size: 0.8rem;
-        gap: 6px;
     }
     
-    .article-cover img {
-        max-height: 200px;
-    }
-    
-    .pagination {
-        padding: 0 12px;
-    }
-    
-    .pagination-btn {
-        padding: 12px 14px;
-    }
-    
-    .pagination-label {
-        font-size: 11px;
-    }
-    
-    .pagination-title {
-        font-size: 13px;
+    .post-navigation {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
     }
 }
 </style>

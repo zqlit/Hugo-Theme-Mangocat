@@ -1,6 +1,6 @@
-baseURL = "https://blog.almango.cn/"
+baseURL = "https://usj.cc/"
 languageCode = "zh-CN"
-title = "Almango"
+title = "USJ Blog"
 theme = "mangocat"
 DefaultContentLanguage = "cn"
 uglyURLs = true
@@ -17,18 +17,18 @@ uglyURLs = true
 
 [author]
   name = "小赵"
-  homepage = "https://blog.almango.cn/"
+  homepage = "https://usj.cc/"
 
 [params]
 # ----- SiteConfig -----
-subtitle = "天真永不消逝，浪漫至死不渝"
-description = "天真永不消逝，浪漫至死不渝"
+subtitle = "技术分享与生活感悟"
+description = "个人技术博客，分享前端开发、网站设计等相关内容"
 headTitle = "小赵"
 author = "小赵"
 favicon = "/favicon.png"
-siteUrl = "https://blog.almango.cn"
+siteUrl = "https://usj.cc"
 createTime = "2024-01-23"
-keywords = "blog, technology, programming"
+keywords = "blog, technology, programming, frontend, web design"
 timezone = "Asia/Shanghai"
 mainSections = ["posts"]
 
@@ -48,9 +48,9 @@ extraCSSFiles = []
 
 # ----- ProfileConfig -----
 [params.profile]
-name = "小赵"
+name = "USJ"
 avatar = "https://usj.cc/image/avatar/tx7.jpg"
-desc = "天真永不消逝，浪漫至死不渝"
+desc = "技术分享与生活感悟"
 
 # ----- CommentConfig -----
 [params.comment]
@@ -58,7 +58,7 @@ enable = true
 provider = "artalk"
   [params.comment.artalk]
   server = "https://artalk.usj.cc"
-  site = "小赵"
+  site = "mangocat"
   akismetKey = ""
 
 # ----- Developer -----
@@ -67,21 +67,12 @@ themeVersion = "5.0.0"
 
 # ----- Categories (icon + color) -----
 [params.categories]
-  [params.categories."年度总结"]
-  icon = "tabler:carambola"
-  color = "#ffae00ff"
-  [params.categories."感言"]
-  icon = "tabler:heart"
-  color = "#cc2b1fff"
-  [params.categories."日常"]
-  icon = "tabler:edit"
-  color = "#b83f81ff"
-  [params.categories."游戏"]
-  icon = "tabler:device-gamepad-2"
-  color = "#cc6a19ff"
-  [params.categories."技能"]
+  [params.categories."技术"]
   icon = "tabler:braces"
   color = "#2d7be0ff"
+  [params.categories."生活"]
+  icon = "tabler:edit"
+  color = "#b83f81ff"
   [params.categories."随笔"]
   icon = "tabler:pencil"
   color = "#1cb17dff"
@@ -89,7 +80,7 @@ themeVersion = "5.0.0"
 # ----- NavConfig -----
 [[params.menu]]
 name = "归档"
-url = "/archive.html"
+url = "/archives.html"
 identifier = "archive"
 icon = "tabler:archive"
 [[params.menu]]

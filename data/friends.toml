@@ -2,169 +2,316 @@
 # Only entries with a non-empty `rss` will be aggregated on the circle page.
 
 [[friends]]
-name = "张洪Heo"
-desc = "分享设计与科技生活"
-url = "https://blog.zhheo.com/"
-avatar = "https://bu.dusays.com/2022/12/28/63ac2812183aa.png"
-rss = "https://blog.zhheo.com/atom.xml"
+name = "吾柯"
+desc = "保持思考与理性"
+url = "https://blog.keepke.com"
+avatar = "https://blog.keepke.com/logo.png"
+rss = ""
 
 [[friends]]
-name = "纸鹿本鹿"
-desc = "纸鹿至麓不知路，支炉制露不止漉"
-url = "https://blog.zhilu.site/"
-avatar = "https://www.zhilu.site/api/avatar.png"
-rss = "https://blog.zhilu.site/atom.xml"
+name = "强仔博客"
+desc = "强仔的博客"
+url = "https://loseu.cc"
+avatar = "https://loseu.cc/favicon.ico"
+rss = ""
+
+[[friends]]
+name = "七栀"
+desc = "用文字记录那些时间带走的东西"
+url = "https://blog.qydzz.cn"
+avatar = "https://qydzz.cn/logo.png"
+rss = ""
+
+[[friends]]
+name = "若志随笔"
+desc = "一个若志的网络自留地"
+url = "https://www.rz.sb"
+avatar = "https://q1.qlogo.cn/g?b=qq&nk=80360650&s=640"
+rss = ""
+
+[[friends]]
+name = "黑桃三"
+desc = "逆着光行走，任风吹雨打"
+url = "https://heitaosan.com"
+avatar = "https://s2.ax1x.com/2020/01/03/lUmf81.png"
+rss = ""
+
+[[friends]]
+name = "Robes"
+desc = "平凡的日子也是限量版"
+url = "https://robes.xin"
+avatar = "https://robes.xin/tx.jpg"
+rss = ""
+
+[[friends]]
+name = "十七的小栈"
+desc = "别让世俗淹没了生活"
+url = "https://blog.allnull.cn"
+avatar = "https://cravatar.cn/avatar/56238a7f177c534928fd3cf4161ab59e?s=65&r=G&d=mm"
+rss = ""
+
+[[friends]]
+name = "Vian"
+desc = "想要的都拥有，得不到的都释怀！"
+url = "https://vian.top"
+avatar = "https://www.vian.top/avatar.ico"
+rss = ""
+
+[[friends]]
+name = "油油"
+desc = "A website for myself"
+url = "https://blog.200011.net"
+avatar = "https://q1.qlogo.cn/g?b=qq&nk=1376652515&s=640"
+rss = ""
+
+[[friends]]
+name = "段先森"
+desc = "迄今所有人生都大写着失败，但并不妨碍我继续向前"
+url = "https://duanxiansen.com"
+avatar = "https://q.qlogo.cn/g?b=qq&nk=2443266417@qq.com&s=100"
+rss = ""
+
+[[friends]]
+name = "Fivk博客"
+desc = "相逢的人会再相逢"
+url = "https://blog.fivk.cn"
+avatar = "https://q1.qlogo.cn/g?b=qq&nk=11470226&s=640"
+rss = ""
+
+[[friends]]
+name = "百品博客"
+desc = "我欲穿花寻路，直入白云深处，浩气展虹霓"
+url = "https://baipin.pw"
+avatar = "https://www.baipin.pw/wp-content/uploads/2019/07/cropped-ABUIABACGAAg_bP2wwUorbiplQQwgAU4gAU.jpg"
+rss = ""
+
+[[friends]]
+name = "北枫"
+desc = "记录一个人的生活点滴"
+url = "https://beifeng.me"
+avatar = "https://q1.qlogo.cn/g?b=qq&nk=41777657&s=640"
+rss = ""
+
+[[friends]]
+name = "团团生活志"
+desc = "爱生活 爱分享"
+url = "https://t-t.live"
+avatar = "https://img.t-t.live/img/tx.png"
+rss = ""
+
+[[friends]]
+name = "三石的记录"
+desc = "记录生活"
+url = "https://www.hedelei.com"
+avatar = "https://cdn.helingqi.com/wavatar/a25a7640aa68e6d26e32afee8120f7e5?s=65&r=G&d="
+rss = ""
+
+[[friends]]
+name = "竹春廿柒"
+desc = "相视而笑，莫逆于心。"
+url = "https://mojinxi.cn"
+avatar = "https://mojinxi.cn/img/logo.png"
+rss = ""
+
+[[friends]]
+name = "大嘴狗狗"
+desc = "真正的幸福在于对平淡生活的热爱"
+url = "https://www.sirit.com.cn"
+avatar = "https://www.sirit.com.cn/siritlogo.png"
+rss = ""
+
+[[friends]]
+name = "半截の诗"
+desc = "一切都会好起来，然后走向正轨，保持热爱，奔赴山海。"
+url = "https://sweetjing.cc/"
+avatar = "https://q1.qlogo.cn/g?b=qq&nk=1486823198&s=640"
+rss = ""
+
+[[friends]]
+name = "XIAOMING'S BLOG"
+desc = "记录生活点滴，谱写精彩生活！"
+url = "https://vimin.cc"
+avatar = "https://cravatar.cn/avatar/6eb95597489dd26f15a973e667d71aef?s=100&amp;r=G&amp;d="
+rss = ""
+
+[[friends]]
+name = "网友小宋"
+desc = "一个九三年的老青年"
+url = "https://xyzbz.cn"
+avatar = "https://cravatar.cn/avatar/120340d1df519f4e28613fe5d404b286?s=65&r=G&d="
+rss = ""
+
+[[friends]]
+name = "微风忆夏"
+desc = "微风轻轻起 夏日不再来"
+url = "https://sumiler.com"
+avatar = "https://cravatar.cn/avatar//a35f5ef7a4bce3b7cfa6f538ffcae7aa"
+rss = ""
+
+[[friends]]
+name = "Kris Yan"
+desc = "無限進步 @Schale夏萊"
+url = "https://blog.krisyan.dev"
+avatar = "https://cravatar.cn/avatar/05729ab2ca3b99203a674859f77d592b?&d=mp"
+rss = ""
+
+[[friends]]
+name = "Echo 的小窝"
+desc = "漂泊于互联网中的小窝"
+url = "https://www.liveout.cn/"
+avatar = "https://cravatar.cn/avatar/d9d83d9ebd03447fff3b094e140a0cbe"
+rss = ""
+
+[[friends]]
+name = "未来往事"
+desc = "漂泊于互联网中的小窝"
+url = "https://felixway.cn"
+avatar = "https://cravatar.cn/avatar/2ee35215cbea58cd8b2605e7f517d689?&d=mp"
+rss = ""
+
+[[friends]]
+name = "小稚生活志"
+desc = "心存阳光，必有诗和远方"
+url = "https://ihello.cc"
+avatar = "https://bu.dusays.com/2024/02/02/65bbce27b129a.jpg"
+rss = ""
+
+[[friends]]
+name = "风呼呼"
+desc = "寒冻三尺非此界，烈日焦灼正午时！"
+url = "https://whooc.com"
+avatar = "https://whooc.com/logo"
+rss = ""
+
+[[friends]]
+name = "柳橙睿"
+desc = "其实我是一个假柳橙"
+url = "https://www.liuchengrui.cn"
+avatar = "https://www.liuchengrui.cn/myphoto.png"
+rss = ""
+
+[[friends]]
+name = "永恒末匕"
+desc = "留下瞬间，记录永恒"
+url = "https://likaijian.com"
+avatar = "https://q.qlogo.cn/headimg_dl?dst_uin=1527335101&spec=640"
+rss = ""
+
+[[friends]]
+name = "刘郎阁"
+desc = "一个积极向上的生活探索者！"
+url = "https://vjo.cc"
+avatar = "https://yjvc.cn/usr/uploads/logo.jpeg"
+rss = ""
+
+[[friends]]
+name = "二十六"
+desc = "人生如逆旅，我亦是行人。"
+url = "https://www.ershiliu.com/"
+avatar = "https://www.ershiliu.com/favicon.ico"
+rss = ""
+
+[[friends]]
+name = "阿呆日记"
+desc = "肥宅的摆烂生活"
+url = "https://dai.ge"
+avatar = "https://dai.ge/img/logo.png"
+rss = ""
+
+[[friends]]
+name = "邹江博客"
+desc = "热爱你来过的每度温暖"
+url = "https://www.zoujiang.com"
+avatar = "https://www.zoujiang.com/logo.jpg"
+rss = ""
+
+[[friends]]
+name = "清梦云熙"
+desc = "相逢何必曾相识"
+url = "https://skylan.cc"
+avatar = "https://cravatar.cn/avatar/853572275a978dbccefbe2242ba1c415"
+rss = ""
+
+[[friends]]
+name = "如约而至"
+desc = "随便写写"
+url = "https://aloner.ink"
+avatar = "https://cravatar.cn/avatar/af1874b7856255302fc3df5102a6ce6d"
+rss = ""
+
+[[friends]]
+name = "子舒"
+desc = "子舒的博客"
+url = "https://www.zishu.me"
+avatar = "https://gravatar.zishu.me/avatar/bdad602f1f9d29ce83944c4f6225d1cc?s=200&d=retro"
+rss = ""
 
 [[friends]]
 name = "杜老师说"
-desc = "dusays.com"
-url = "https://dusays.com/"
-avatar = "https://cdn.dusays.com/favicon.ico"
-rss = "https://dusays.com/atom.xml"
-
-[[friends]]
-name = "定の栈"
-desc = "LINK START!"
-url = "https://blog.saop.cc/"
-avatar = "https://saop.cc/avatar.webp"
-rss = "https://blog.saop.cc/atom.xml"
-
-[[friends]]
-name = "栖童の小站"
-desc = "越努力，越幸运."
-url = "https://blog.linux-qitong.top/"
-avatar = "https://blog.linux-qitong.top/img/avatar.webp"
-rss = "https://blog.linux-qitong.top/atom.xml"
-
-[[friends]]
-name = "Saneko"
-desc = "Do the things that I like."
-url = "https://saneko.me"
-avatar = "https://cdn.blog.saneko.me/Web/Avatar.png"
-rss = "https://saneko.me/rss.xml"
-
-[[friends]]
-name = "鈴奈咲桜"
-desc = "愛することを忘れないで"
-url = "https://blog.sakura.ink"
-avatar = "https://q2.qlogo.cn/headimg_dl?dst_uin=2731443459&spec=5"
-rss = "https://blog.sakura.ink/rss.xml"
-
-[[friends]]
-name = "卿以君歌"
-desc = "幻术的世界有什么不好？"
-url = "https://www.mekimto.cn/"
-avatar = "https://q1.qlogo.cn/g?b=qq&nk=2882740&s=100"
+desc = "杜老师的博客"
+url = "https://www.dusays.com"
+avatar = "https://www.dusays.com/favicon.ico"
 rss = ""
 
 [[friends]]
-name = "Revincx"
-desc = "可爱就是正义~"
-url = "https://blog.revincx.icu/"
-avatar = "https://cdn.jsdelivr.net/gh/Revincx/blog-assets@master/images/avatar.jpg"
+name = "袁某人博客"
+desc = "袁某人的博客"
+url = "https://jb18.cm"
+avatar = "https://jb18.cm/favicon.ico"
 rss = ""
 
 [[friends]]
-name = "微尘印记"
-desc = "愿如微尘，亦有印记。"
-url = "https://weichen.ink"
-avatar = "https://weichen.ink/avatar.jpg"
-rss = "https://weichen.ink/rss.xml"
-
-[[friends]]
-name = "懒觉猫先生"
-desc = "阿巴阿巴阿巴.."
-url = "https://blog.luoaicheng.cn/"
-avatar = "https://pic.imgdb.cn/item/64c65629a9eb352efd93a379.webp"
+name = "Jdeal"
+desc = "永远tmd热泪盈眶"
+url = "https://www.jdeal.cn/"
+avatar = "https://cn.cravatar.com/avatar/e52005490b64d0da9e98a89b295d5a0d"
 rss = ""
 
 [[friends]]
-name = "YOUXIANYU"
-desc = "唐人曾"
-url = "https://youxianyu.cn/"
-avatar = "https://www.youxianyu.cn/img/c.c.jpg"
+name = "林木木"
+desc = "林木木博客"
+url = "https://immmmm.com"
+avatar = "https://weavatar.com/avatar/321331f2353f7eb24979e82f9e7fb5b39fef9ea85bd7a362142ce3188c1bb069"
 rss = ""
 
 [[friends]]
-name = "探人间"
-desc = "努力吃上更贵的雪糕！"
-url = "https://www.hydsb0.com"
-avatar = "https://s21.ax1x.com/2025/07/13/pVlsr8S.jpg"
-rss = "https://www.hydsb0.com/rss.xml"
+name = "LMS"
+desc = "LMS博客"
+url = "https://lms.im"
+avatar = "https://cravatar.cn/avatar/d9cc49ea0301640d7a19b6a1e77012dd"
+rss = ""
 
 [[friends]]
-name = "JustPureH2O"
-desc = "穷方圆平直之情，尽规矩准绳之用。"
-url = "https://justpureh2o.cn"
-avatar = "https://img.justpureh2o.cn/image/667f85b1d9c307b7e9ef9f2c.jpg"
-rss = "https://justpureh2o.cn/rss.xml"
+name = "嘀咕博客"
+desc = "嘀咕博客"
+url = "https://digu.plus"
+avatar = "https://cravatar.cn/avatar/0c9157a4f48ba4cc94ada5e7016bcf72"
+rss = ""
 
 [[friends]]
-name = "bbb-lsy07"
-desc = "科技激荡人文，洞见智慧本真。"
-url = "https://blog.tsoo.net/"
-avatar = "https://blog.tsoo.net/upload/logo.jpg?width=800"
-rss = "https://blog.tsoo.net/rss.xml"
+name = "J.sky"
+desc = "J.sky的博客"
+url = "https://www.suiyan.cc/"
+avatar = "https://weavatar.com/avatar/897defecd8ecc9ad844d86f615b967d2?d=mp&s=240"
+rss = ""
 
 [[friends]]
-name = "ElysiumStack"
-desc = "不会摄影的设计师不是优秀的旅行家"
-url = "https://www.elysium-stack.cn/"
-avatar = "https://elysium-stack.cn/upload/c4d9cffe-2541-40d3-b8b9-85f5827a2dc3.png"
-rss = "https://www.elysium-stack.cn/rss.xml"
+name = "安静角落"
+desc = "安静角落"
+url = "https://wuziya.com"
+avatar = "https://weavatar.com/avatar/e08b1ed883704d10a4e4b9c05b2bf019"
+rss = ""
 
 [[friends]]
-name = "小林の木屋"
-desc = "一个黑客小子！"
-url = "https://www.wjlin0.com"
-avatar = "https://www.wjlin0.com/upload/log.png"
-rss = "https://www.wjlin0.com/rss.xml"
+name = "轻风记"
+desc = "风会记得一朵花的香"
+url = "https://windy.ink"
+avatar = "https://weavatar.com/avatar/321331f2353f7eb24979e82f9e7fb5b39fef9ea85bd7a362142ce3188c1bb069"
+rss = ""
 
 [[friends]]
-name = "mccsjs"
-desc = "素敵な一日が始まります🎉🎉🎉"
-url = "https://mccsjs.eu.org/"
-avatar = "https://mccsjs.eu.org/img/head.jpg"
-rss = "https://mccsjs.eu.org/rss.xml"
-
-[[friends]]
-name = "CcoMm"
-desc = "你要吃C4吗？"
-url = "https://blog.ccomm.top/"
-avatar = "https://avatars.githubusercontent.com/u/147143261"
-rss = "https://blog.ccomm.top/rss.xml"
-
-[[friends]]
-name = "Meorion"
-desc = "去码头整点薯条🍟"
-url = "https://blog.meorion.moe"
-avatar = "https://gravatar.meorion.moe/avatar/me"
-rss = "https://blog.meorion.moe/rss.xml"
-
-[[friends]]
-name = "朝瓜夕拾"
-desc = "瓜瓜和果果的Blog"
-url = "https://yuubari.cn"
-avatar = "https://yuubari.cn/upload/3628985i.png"
-rss = "https://yuubari.cn/rss.xml"
-
-[[friends]]
-name = "Kegongtang"
-desc = "Blogger / Technophile / Student"
-url = "https://kegongteng.cn/"
-avatar = "https://weavatar.com/avatar/0b01396273cca253aa6876c020449b655a9cc12e75f921b38ac088569e814b5e"
-rss = "https://kegongteng.cn/atom"
-
-[[friends]]
-name = "AirTouch"
-desc = "Stay Hungry, Stay Foolish"
-url = "https://www.xsl.im/"
-avatar = "https://www.xsl.im/avatar.webp"
-rss = "https://www.xsl.im/atom.xml"
-
-[[friends]]
-name = "天码行空的小破站"
-desc = "路漫漫其修远兮，吾将上下而求索"
-url = "https://cosky.top/"
-avatar = "https://bu.dusays.com/2026/02/05/6984096009670.jpeg"
-rss = "https://cosky.top/rss"
+name = "湘铭`Blog"
+desc = "湘铭的博客"
+url = "https://xiangming.site/"
+avatar = "https://photo.xiangming.site/img/icologo.png"
+rss = ""
