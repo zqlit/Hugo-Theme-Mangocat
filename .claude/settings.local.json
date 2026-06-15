@@ -10,7 +10,12 @@
       "Read(//tmp/**)",
       "Read(//tmp/mangocat-src/**)",
       "Bash(hugo --quiet)",
-      "Bash(hugo)"
+      "Bash(hugo)",
+      "WebSearch",
+      "WebFetch(domain:getuikit.com)",
+      "Bash(Remove-Item \"E:\\\\GitHub\\\\Hugo-Theme-Mangocat\\\\themes\\\\mangocat\\\\static\\\\css\\\\animation.css\" -Force)",
+      "Bash(Remove-Item \"E:\\\\GitHub\\\\Hugo-Theme-Mangocat\\\\assets\\\\css\\\\main.css\" -Force)",
+      "Bash(Write-Output \"Deleted animation.css and main.css\")"
     ]
   }
 }

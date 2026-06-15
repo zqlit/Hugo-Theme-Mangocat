@@ -1410,3 +1410,13 @@ body {
         margin-top: 1rem;
     }
 }
+
+/* ---- NProgress 主题色 ---- */
+#nprogress .bar {
+  background: var(--theme-color) !important;
+  height: 3px;
+}
+#nprogress .peg {
+  box-shadow: 0 0 12px var(--theme-color), 0 0 6px var(--theme-color) !important;
+}
+

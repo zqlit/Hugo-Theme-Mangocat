@@ -1,141 +1,393 @@
 <script>
-  // 绑定所有事件监听器
-  function bindEventListeners() {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
+(function() {
+  'use strict';
+
+  // ============================================================
+  // 一次性初始化 —— 只执行一次，使用事件委托避免重复绑定
+  // ============================================================
+  function initOnce() {
+    if (window.__mangocat_init_done) return;
+    window.__mangocat_init_done = true;
+
+    // --- 主题切换（事件委托，因为按钮在 htmx boost 后会被替换）---
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.theme-toggle');
+      if (!btn) return;
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+      }
     });
-    
-    // Lazy loading for images
-    if ('IntersectionObserver' in window) {
-      const imgObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            imgObserver.unobserve(img);
-          }
-        });
-      });
-      
-      document.querySelectorAll('img[data-src]').forEach(img => {
-        imgObserver.observe(img);
-      });
-    }
-    
-    // 主题切换功能
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.theme = 'light';
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.theme = 'dark';
-        }
-      });
-    }
-    
-    // 导航栏折叠功能
-    const sidebarNav = document.getElementById('sidebar-nav');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-    const foldToggle = document.querySelector('.fold-toggle');
 
-    // 打开侧边栏
-    function openSidebar() {
-      sidebarNav.classList.add('active');
-      sidebarOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    // 关闭侧边栏
-    function closeSidebar() {
-      sidebarNav.classList.remove('active');
-      sidebarOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // 绑定事件
-    if (foldToggle) {
-      foldToggle.addEventListener('click', openSidebar);
-    }
-
-    if (sidebarOverlay) {
-      sidebarOverlay.addEventListener('click', closeSidebar);
-    }
-
-    // ESC键关闭侧边栏
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    // --- 侧边栏（事件委托）---
+    document.addEventListener('click', function(e) {
+      var foldBtn = e.target.closest('.fold-toggle');
+      if (foldBtn) {
+        var nav = document.getElementById('sidebar-nav');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (nav) nav.classList.add('active');
+        if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+      var overlayEl = e.target.closest('#sidebar-overlay');
+      if (overlayEl) {
         closeSidebar();
       }
     });
-    
-    // 当前页面导航高亮 - 顶部导航
-    const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
-        link.classList.add('active');
-        const icon = link.querySelector('.nav-icon');
-        if (icon) {
-          icon.style.display = 'inline-block';
-        }
+
+    function closeSidebar() {
+      var nav = document.getElementById('sidebar-nav');
+      var overlay = document.getElementById('sidebar-overlay');
+      if (nav) nav.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeSidebar();
+    });
+
+    // --- 平滑滚动锚点（事件委托）---
+    document.addEventListener('click', function(e) {
+      var anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      var targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
       }
     });
 
-    // 侧边栏当前页面高亮
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
-    sidebarLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
-        link.classList.add('active');
-      }
-    });
-    // 滚动时隐藏 header
-    let lastScrollY = 0;
-    const header = document.querySelector('.header');
-    
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // 向下滚动且超过100px，隐藏 header
+    // --- 滚动隐藏 header（只绑定一次到 window）---
+    var lastScrollY = 0;
+    window.addEventListener('scroll', function() {
+      var header = document.querySelector('.header');
+      if (!header) return;
+      var y = window.scrollY;
+      if (y > lastScrollY && y > 100) {
         header.classList.add('nav-hidden');
       } else {
-        // 向上滚动或回到顶部，显示 header
         header.classList.remove('nav-hidden');
       }
-      
-      lastScrollY = currentScrollY;
-    });
-  }
-  
-  // 初始绑定
-  bindEventListeners();
-  
-  // 在 htmx 加载完成后重新绑定事件监听器
-  document.addEventListener('htmx:load', function() {
-    bindEventListeners();
-  });
-</script>
+      lastScrollY = y;
+    }, { passive: true });
 
-{{ with .Site.Params.twikooUrl }}
-<!-- Twikoo 评论系统 -->
-<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js"></script>
-<script>
-  twikoo.init({
-    envId: '{{ . }}',
-    el: '#twikoo',
-    lang: 'zh-CN'
-  });
+    // --- 图片懒加载（只创建一次 observer）---
+    if ('IntersectionObserver' in window) {
+      window.__mangocat_imgObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+            }
+            window.__mangocat_imgObserver.unobserve(img);
+          }
+        });
+      });
+    }
+
+    // --- 全局 Twikoo 初始化（仅首次）---
+    {{ with .Site.Params.twikooUrl }}
+    if (!window.__twikoo_loaded) {
+      window.__twikoo_loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js';
+      s.onload = function() {
+        twikoo.init({ envId: '{{ . }}', el: '#twikoo', lang: 'zh-CN' });
+      };
+      document.head.appendChild(s);
+    }
+    {{ end }}
+
+    // --- NProgress 顶部加载条 ---
+    if (window.NProgress) {
+      NProgress.configure({ showSpinner: false, trickleSpeed: 180 });
+    }
+
+    // --- htmx 事件（只注册一次，防止 boost 重复）---
+    document.addEventListener('htmx:beforeRequest', function(evt) {
+      if (evt.detail && evt.detail.boosted) {
+        if (window.NProgress) NProgress.start();
+      }
+    });
+
+    document.addEventListener('htmx:responseError', function(evt) {
+      if (evt.detail && evt.detail.boosted) {
+        if (window.NProgress) NProgress.done();
+      }
+    });
+
+    document.addEventListener('htmx:afterSettle', function(evt) {
+      if (evt.detail && evt.detail.boosted) {
+        if (window.NProgress) NProgress.done();
+        refreshAfterNav();
+      }
+    });
+
+    // 首次加载
+    refreshAfterNav();
+  }
+
+  // ============================================================
+  // 每次 htmx 导航后需要刷新的逻辑
+  // ============================================================
+  function refreshAfterNav() {
+    // --- 更新页面标题和 meta ---
+    var meta = document.getElementById('page-meta');
+    if (meta) {
+      var title = meta.getAttribute('data-title');
+      if (title) document.title = title;
+      var desc = meta.getAttribute('data-description');
+      if (desc) {
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', desc);
+      }
+    }
+
+    // --- 导航高亮 ---
+    var currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    var navLinks = document.querySelectorAll('.nav-link');
+    for (var i = 0; i < navLinks.length; i++) {
+      var link = navLinks[i];
+      // 清除旧状态
+      link.classList.remove('active');
+      var icon = link.querySelector('.nav-icon');
+      if (icon) icon.style.display = '';
+
+      var href = (link.getAttribute('href') || '').replace(/\/$/, '') || '/';
+      if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
+        link.classList.add('active');
+        if (icon) icon.style.display = 'inline-block';
+      }
+    }
+    // 侧边栏高亮
+    var sidebarLinks = document.querySelectorAll('.sidebar-link');
+    for (var j = 0; j < sidebarLinks.length; j++) {
+      var sLink = sidebarLinks[j];
+      sLink.classList.remove('active');
+      var sHref = (sLink.getAttribute('href') || '').replace(/\/$/, '') || '/';
+      if (sHref === currentPath || (sHref !== '/' && currentPath.startsWith(sHref))) {
+        sLink.classList.add('active');
+      }
+    }
+
+    // --- 重新观察新图片 ---
+    if (window.__mangocat_imgObserver) {
+      var newImgs = document.querySelectorAll('img[data-src]');
+      for (var k = 0; k < newImgs.length; k++) {
+        window.__mangocat_imgObserver.observe(newImgs[k]);
+      }
+    }
+
+    // --- 评论系统初始化 ---
+    initComments();
+  }
+
+  // ============================================================
+  // 评论系统统一初始化
+  // ============================================================
+  var __artalkInstance = null;
+  var __artalkLoading = false;
+  var __artalkLastPageKey = '';   // 记录上次初始化的页面，避免同页重复 init
+
+  function initComments() {
+    // Artalk
+    var artalkEl = document.getElementById('Artalk');
+    if (artalkEl && artalkEl.getAttribute('data-provider') === 'artalk') {
+      var pageKey = artalkEl.getAttribute('data-page-key');
+      console.log('[Artalk] Element found, pageKey:', pageKey, 'lastPageKey:', __artalkLastPageKey);
+      // 同一页面不重复初始化
+      if (pageKey === __artalkLastPageKey && __artalkInstance) return;
+      __artalkLastPageKey = pageKey || '';
+      initArtalk();
+    } else if (!artalkEl && __artalkInstance) {
+      console.log('[Artalk] No element on page, destroying instance');
+      // 离开有评论的页面时销毁实例
+      try { __artalkInstance.destroy(); } catch(e) {}
+      __artalkInstance = null;
+      __artalkLastPageKey = '';
+    }
+
+    // Twikoo
+    var twikooEl = document.getElementById('twikoo');
+    if (twikooEl && twikooEl.getAttribute('data-provider') === 'twikoo') {
+      initTwikoo(twikooEl);
+    }
+  }
+
+  function initArtalk() {
+    // 销毁旧实例
+    if (__artalkInstance) {
+      try { __artalkInstance.destroy(); } catch(e) {}
+      __artalkInstance = null;
+    }
+
+    // 显示加载动画
+    var artalkEl = document.getElementById('Artalk');
+    if (artalkEl) {
+      artalkEl.innerHTML = '<div class="artalk-loading" style="text-align:center;padding:40px 20px;color:var(--desc-color, #999);">' +
+        '<div class="artalk-spinner" style="display:inline-block;width:32px;height:32px;border:3px solid var(--border-color, #e5e5e5);border-top-color:var(--theme-color, #1890ff);border-radius:50%;animation:artalk-spin 0.8s linear infinite;"></div>' +
+        '<p style="margin-top:12px;font-size:0.9rem;">评论加载中...</p></div>';
+
+      // 注入旋转动画（仅一次）
+      if (!document.getElementById('artalk-spinner-style')) {
+        var spinnerStyle = document.createElement('style');
+        spinnerStyle.id = 'artalk-spinner-style';
+        spinnerStyle.textContent = '@keyframes artalk-spin{to{transform:rotate(360deg)}}';
+        document.head.appendChild(spinnerStyle);
+      }
+    }
+
+    // 动态加载 Artalk CSS（仅一次）
+    if (!document.getElementById('artalk-css')) {
+      var link = document.createElement('link');
+      link.id = 'artalk-css';
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.css';
+      document.head.appendChild(link);
+    }
+
+    // Artalk JS 已就绪（严格检查是否为构造函数）
+    if (typeof Artalk === 'function') {
+      console.log('[Artalk] Artalk already loaded, creating instance');
+      __artalkLoading = false;
+      createArtalkInstance();
+      return;
+    }
+
+    // 正在加载中 → 等 onload 回调
+    if (__artalkLoading) {
+      console.log('[Artalk] Artalk JS loading in progress, waiting for onload');
+      return;
+    }
+
+    // 如果全局 Artalk 存在但不是函数（被污染），清理后重新加载
+    if (window.Artalk) {
+      delete window.Artalk;
+    }
+
+    // 首次加载 Artalk JS
+    console.log('[Artalk] Starting Artalk JS load from CDN...');
+    __artalkLoading = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.js';
+    s.onload = function() {
+      console.log('[Artalk] JS loaded successfully from CDN');
+      __artalkLoading = false;
+      createArtalkInstance();
+    };
+    s.onerror = function(err) {
+      console.error('[Artalk] Failed to load Artalk JS from CDN:', err);
+      __artalkLoading = false;
+      var el = document.getElementById('Artalk');
+      if (el) el.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">评论加载失败，请刷新页面重试</p>';
+    };
+    document.head.appendChild(s);
+  }
+
+  function createArtalkInstance() {
+    var el = document.getElementById('Artalk');
+    if (!el) return;
+
+    var server = el.getAttribute('data-server');
+    var site = el.getAttribute('data-site');
+    var pageKey = el.getAttribute('data-page-key');
+    var pageTitle = el.getAttribute('data-page-title');
+    var akismetKey = el.getAttribute('data-akismet-key') || '';
+
+    if (!server || !site) {
+      console.warn('[Artalk] Missing config — server:', server, 'site:', site);
+      el.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">评论配置不完整</p>';
+      return;
+    }
+
+    var cfg = {
+      el: el,
+      pageKey: pageKey,
+      pageTitle: pageTitle,
+      server: server,
+      site: site,
+      darkMode: document.documentElement.classList.contains('dark')
+    };
+    if (akismetKey) cfg.akismetKey = akismetKey;
+
+    console.log('[Artalk] Creating instance with config:', {
+      server: server, site: site, pageKey: pageKey,
+      pageTitle: pageTitle, darkMode: cfg.darkMode
+    });
+
+    el.innerHTML = '';
+    if (typeof Artalk !== 'function') {
+      el.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">评论组件未就绪，请刷新页面</p>';
+      return;
+    }
+    try {
+      __artalkInstance = new Artalk(cfg);
+      console.log('[Artalk] Instance created successfully');
+
+      // 超时检测：15秒后若评论区仍为空或只有 spinner，则服务器可能不可达
+      var timeoutId = setTimeout(function() {
+        var checkEl = document.getElementById('Artalk');
+        if (checkEl && (checkEl.querySelector('.artalk-loading') || checkEl.children.length === 0)) {
+          console.warn('[Artalk] Timed out waiting for comments (15s). Server may be unreachable.');
+          checkEl.innerHTML = '<p style="color:var(--desc-color, #999);text-align:center;padding:20px;">' +
+            '评论加载超时，请检查网络连接或 <a href="javascript:location.reload()" style="color:var(--theme-color);">刷新页面</a> 重试</p>';
+        }
+      }, 15000);
+      el.setAttribute('data-artalk-timeout', timeoutId);
+
+      // 尝试监听 Artalk 列表加载事件，提前清除超时
+      if (__artalkInstance && typeof __artalkInstance.on === 'function') {
+        try {
+          __artalkInstance.on('list-fetch', function() {
+            console.log('[Artalk] Comments fetched from server');
+            var tid = el.getAttribute('data-artalk-timeout');
+            if (tid) { clearTimeout(parseInt(tid, 10)); el.removeAttribute('data-artalk-timeout'); }
+          });
+        } catch(evtErr) {
+          console.warn('[Artalk] Event listener registration failed:', evtErr);
+        }
+      }
+    } catch(e) {
+      console.error('[Artalk] Failed to create instance:', e);
+      el.innerHTML = '<p style="color:#999;text-align:center;padding:20px;">评论初始化失败</p>';
+    }
+  }
+
+  function initTwikoo(el) {
+    var envId = el.getAttribute('data-env-id');
+    if (!envId) return;
+    var path = el.getAttribute('data-path') || '';
+
+    function doInit() {
+      if (!window.twikoo) return;
+      var cfg = { el: '#twikoo', envId: envId, lang: 'zh-CN' };
+      if (path) cfg.path = path;
+      window.twikoo.init(cfg);
+    }
+
+    if (window.twikoo) {
+      doInit();
+    } else {
+      // 检查是否正在加载
+      if (document.querySelector('script[src*="twikoo"]')) return;
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js';
+      s.onload = doInit;
+      document.head.appendChild(s);
+    }
+  }
+
+  // ============================================================
+  // 启动（refreshAfterNav 在 initOnce 末尾调用，htmx boost 后由 afterSettle 触发）
+  // ============================================================
+  initOnce();
+})();
 </script>
-{{ end }}

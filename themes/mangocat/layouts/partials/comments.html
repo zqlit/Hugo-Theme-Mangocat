@@ -3,32 +3,9 @@
     <div class="article-container">
         <div class="comments">
             {{ if eq $c.provider "twikoo" }}
-                <div id="twikoo" class="twikoo-comments"></div>
-                <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.16/dist/twikoo.all.min.js"></script>
-                <script>
-                    twikoo.init({
-                        envId: '{{ $c.twikoo.envId }}',
-                        el: '#twikoo',
-                        path: '{{ $c.twikoo.path | default "auto" }}'
-                    });
-                </script>
+                <div id="twikoo" class="twikoo-comments" data-provider="twikoo" data-env-id="{{ $c.twikoo.envId }}" data-path="{{ $c.twikoo.path | default "auto" }}"></div>
             {{ else if eq $c.provider "artalk" }}
-                <div id="Artalk"></div>
-                <link href="https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.css" rel="stylesheet">
-                <script src="https://cdn.jsdelivr.net/npm/artalk@2.8.7/dist/Artalk.js"></script>
-                <script>
-                    new Artalk({
-                        el: '#Artalk',
-                        pageKey: '{{ .RelPermalink }}',
-                        pageTitle: '{{ .Title }}',
-                        server: '{{ $c.artalk.server }}',
-                        site: '{{ $c.artalk.site }}',
-                        {{ with $c.artalk.akismetKey }}
-akismetKey: '{{ . }}',
-                        {{ end }}
-                        darkMode: document.documentElement.classList.contains('dark')
-                    });
-                </script>
+                <div id="Artalk" data-provider="artalk" data-server="{{ $c.artalk.server }}" data-site="{{ $c.artalk.site }}" data-page-key="{{ .RelPermalink }}" data-page-title="{{ .Title }}"{{ with $c.artalk.akismetKey }} data-akismet-key="{{ . }}"{{ end }}></div>
             {{ end }}
         </div>
     </div>

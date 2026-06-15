@@ -2,7 +2,10 @@
 <html lang="{{ .Site.LanguageCode }}" prefix="og: http://ogp.me/ns#">
 {{ partial "head.html" . }}
 
-<body hx-boost="true" hx-indicator="body" hx-swap="innerHTML transition:300ms">
+<body hx-boost="true" hx-swap="innerHTML show:top">
+  <!-- 页面元数据，供 htmx 导航后 JS 读取更新 head -->
+  <div id="page-meta" style="display:none" data-title="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}" data-description="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}"></div>
+  
   {{ partial "header.html" . }}
   
   <main class="main-content">

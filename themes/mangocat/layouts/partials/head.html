@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .IsHome }}{{ .Site.Params.title }}{{ else }}{{ .Title }} - {{ .Site.Params.title }}{{ end }}</title>
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
   <meta name="revisit-after" content="7 days">
@@ -9,11 +9,11 @@
   <meta name="author" content="{{ .Site.Params.author }}">
   <meta name="robots" content="index, follow">
 
-  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Params.title }}{{ else }}{{ .Title }}{{ end }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
   <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:site_name" content="{{ .Site.Params.title }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:locale" content="{{ .Site.LanguageCode }}">
   {{ with .Params.cover }}
   <meta property="og:image" content="{{ . }}">
@@ -21,7 +21,7 @@
   {{ end }}
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Params.title }}{{ else }}{{ .Title }}{{ end }}">
+  <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
   <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="twitter:site" content="{{ .Site.Params.author }}">
   {{ with .Params.cover }}
@@ -44,6 +44,10 @@
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet">
 
+  <!-- NProgress 顶部加载条 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.12/dist/htmx.min.js"></script>
 
   <script>
@@ -55,7 +59,7 @@
   </script>
 
   {{ with .OutputFormats.Get "RSS" }}
-  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Params.title }}">
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}">
   {{ end }}
 
   {{ with .Site.Config.Services.GoogleAnalytics.ID }}
